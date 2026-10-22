@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --accent: #e8e4dc;
+    --accent-hover: #d6d1c6;
+    --accent-contrast: #050505;
+    --surface-lit: #cfc9bc;
+    --surface-lit-ink: #16150f;
+    --surface-lit-ink-soft: #2c2a22;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: #050505;
+    color: #f3f3f3;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  }
+
+  .font-serif {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  ::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  html, body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-row {
+  --marquee-fade: 10%;
+  mask-image: linear-gradient(to right, transparent 0, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--marquee-fade), #000 calc(100% - var(--marquee-fade)), transparent 100%);
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-track {
+  will-change: transform;
+  width: max-content;
+  display: flex;
+  animation: marquee var(--marquee-duration, 35s) linear infinite;
+  animation-direction: var(--marquee-direction, normal);
+}
+
+.marquee-row:hover .marquee-track,
+.marquee-row:focus-within .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes halo {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  70%, 100% {
+    opacity: 0;
+    transform: scale(2.8);
+  }
+}
+
+.animate-halo {
+  animation: 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite halo;
+}
+
+@keyframes waterFill {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+.animate-water-fill {
+  background: linear-gradient(to top, var(--accent) 50%, transparent 50%);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+  background-position: 0 0;
+  background-size: 100% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: 2s cubic-bezier(0.4, 0, 0.2, 1) forwards waterFill;
+}
+
+.service-row {
+  position: relative;
+}
+
+.service-row::after {
+  content: "";
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: background-color 0.3s ease;
+}
+
+.service-row:hover::after {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.hover-rule {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hover-rule:hover,
+.hover-rule:focus-visible {
+  background-size: 100% 1px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
