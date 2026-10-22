@@ -57,8 +57,8 @@ export const portfolioData = {
     lastName: "Tejadilla",
     wordmark: "TEJADILLA",
     role: {
-      bold: "Operations Specialist",
-      light: "& Virtual Assistant"
+      bold: "Data Entry Specialist",
+      light: "& Admin Virtual Assistant"
     },
     subRole: "Aviation Flying Graduate",
     email: "ald.tej16@gmail.com",

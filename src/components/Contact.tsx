@@ -52,7 +52,7 @@ export const Contact: React.FC = () => {
 
             {/* Lead Narrative */}
             <p className="text-gray-300 text-base md:text-lg lg:text-xl font-light leading-relaxed max-w-xl mb-10">
-              Open for full-time virtual assistant positions, CRM data management contracts, YouTube release scheduling, Canva video editing, and operational roles. Direct messages on WhatsApp or Email receive rapid response.
+              Open for full-time Data Entry Specialist & Admin Virtual Assistant positions, CRM data management contracts, YouTube release scheduling, and Canva multimedia projects. Direct messages on WhatsApp or Email receive rapid response.
             </p>
 
             {/* Direct Action Buttons Strip */}

@@ -38,7 +38,7 @@ export const About: React.FC = () => {
                 <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
                   Hey, I&apos;m {portfolioData.profile.fullName}.
                 </span>{' '}
-                An Operations Specialist, Virtual Assistant, and Aviation Flying Graduate with a multidisciplinary track record spanning CRM database administration, employee time audits, social media video scheduling, Canva multimedia production, and high-velocity sneaker resale commerce.
+                A Data Entry Specialist, Admin Virtual Assistant, and Aviation Flying Graduate with a multidisciplinary track record spanning CRM database administration, employee time audits, social media video scheduling, Canva multimedia production, and high-velocity sneaker resale commerce.
               </p>
 
               {/* CV Objective Quote */}
