@@ -1,6 +1,7 @@
 import React from 'react';
 import { portfolioData } from '../data/portfolioData';
 import { ArrowUp } from 'lucide-react';
+import { LinkedInIcon } from './LinkedInIcon';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -32,6 +33,15 @@ export const Footer: React.FC = () => {
           <a href="#project" className="hover:text-white transition-colors">Experience</a>
           <a href="#credentials" className="hover:text-white transition-colors">Credentials</a>
           <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+          <a
+            href={portfolioData.profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[#0A66C2] hover:text-white transition-colors"
+          >
+            <LinkedInIcon className="w-3.5 h-3.5" />
+            <span>LinkedIn</span>
+          </a>
         </div>
 
         {/* Back to Top Button */}
@@ -49,7 +59,19 @@ export const Footer: React.FC = () => {
       {/* Copyright Notice */}
       <div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs font-mono text-zinc-500 font-medium">
         <p>© 2026 {portfolioData.profile.fullName}. All rights reserved.</p>
-        <p>Aviation Flying Graduate & Data Operations</p>
+        <div className="flex items-center gap-4">
+          <a
+            href={portfolioData.profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-white flex items-center gap-1 transition-colors"
+          >
+            <LinkedInIcon className="w-3.5 h-3.5" />
+            <span>LinkedIn Profile</span>
+          </a>
+          <span>·</span>
+          <span>Aviation Flying Graduate & Data Operations</span>
+        </div>
       </div>
     </footer>
   );

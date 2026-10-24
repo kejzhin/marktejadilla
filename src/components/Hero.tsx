@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import gsap from 'gsap';
 import { portfolioData } from '../data/portfolioData';
-import { AviationIntroLoader } from './AviationIntroLoader';
+import { RealAirplaneIntroLoader } from './RealAirplaneIntroLoader';
 import { ArrowUpRight, Download, CheckCircle2, Plane } from 'lucide-react';
+import { LinkedInIcon } from './LinkedInIcon';
 
 interface HeroProps {
   onPreloadComplete?: () => void;
@@ -91,20 +92,18 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
         ))}
       </div>
 
-      {/* Standalone Centered Aviation Telemetry Intro Loading Screen */}
+      {/* Standalone Real Airplane Takeoff Intro with Live Portfolio Reveal */}
       {showIntroComponent && (
-        <AviationIntroLoader
+        <RealAirplaneIntroLoader
           targetWord={targetWord}
           onComplete={handleIntroComplete}
         />
       )}
 
-      {/* Main 2-Column Hero: About Me on the Left, Profile Picture on the Right */}
+      {/* Main 2-Column Hero: About Me on the Left, Profile Picture on the Right (Visible beneath peeling cover) */}
       <div
         ref={heroContentRef}
-        className={`relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 transition-opacity duration-700 ${
-          isIntroDone ? 'opacity-100' : 'opacity-0'
-        }`}
+        className="relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16"
       >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center min-h-[calc(100vh-10rem)]">
           
@@ -186,6 +185,17 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
                 <Download className="w-3.5 h-3.5" />
                 <span>Resume (PDF)</span>
               </a>
+
+              {/* Official LinkedIn Button */}
+              <a
+                href={portfolioData.profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full border border-zinc-300 bg-white text-[#0A66C2] hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] text-xs sm:text-sm font-bold tracking-wide uppercase transition-all duration-300 cursor-pointer shadow-xs"
+              >
+                <LinkedInIcon className="w-4 h-4" />
+                <span>LinkedIn</span>
+              </a>
             </div>
 
           </div>
@@ -210,9 +220,22 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
               />
             </div>
           </div>
-
         </div>
       </div>
+
+      {/* Animated Floating Scroll Indicator */}
+      <a
+        href="#about"
+        className="hidden sm:flex absolute bottom-5 left-1/2 -translate-x-1/2 z-20 flex-col items-center gap-1.5 text-zinc-400 hover:text-black transition-colors group cursor-pointer"
+        aria-label="Scroll down to explore"
+      >
+        <span className="text-[9px] font-mono uppercase tracking-[0.3em] font-semibold">
+          Scroll to explore
+        </span>
+        <div className="w-4 h-7 rounded-full border border-zinc-300 group-hover:border-black flex items-start justify-center p-1 transition-colors">
+          <div className="w-1 h-1.5 rounded-full bg-zinc-600 group-hover:bg-black animate-bounce" />
+        </div>
+      </a>
     </section>
   );
 };

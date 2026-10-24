@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioData, ServiceItem } from '../data/portfolioData';
 import { CheckCircle2, ChevronDown } from 'lucide-react';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ServicesProps {
   onSelectService?: (service: ServiceItem) => void;
@@ -9,13 +13,41 @@ interface ServicesProps {
 export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
   const [activeId, setActiveId] = useState<string | null>('01');
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const toggleRow = (id: string) => {
     setActiveId((prev) => (prev === id ? null : id));
   };
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (listRef.current) {
+        gsap.fromTo(
+          listRef.current.children,
+          { opacity: 0, y: 35 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            stagger: 0.12,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: listRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="service"
       className="relative text-zinc-900 pt-16 md:pt-24 pb-0 px-4 sm:px-6 md:px-12 lg:px-16 flex flex-col overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f5f5f9_40%,#ebebf3_80%,#ffffff_100%)]"
     >
@@ -35,7 +67,7 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
       </div>
 
       {/* Accordion List */}
-      <div className="w-full flex flex-col">
+      <div ref={listRef} className="w-full flex flex-col">
         {portfolioData.services.map((item) => {
           const isExpanded = activeId === item.id;
           const isHovered = hoveredId === item.id;

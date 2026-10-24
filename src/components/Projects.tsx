@@ -1,13 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioData, WorkExperienceItem } from '../data/portfolioData';
 import { ArrowUpRight, Calendar, Building2, CheckCircle2, Briefcase } from 'lucide-react';
 import { ProjectModal } from './ProjectModal';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const Projects: React.FC = () => {
   const [selectedExperience, setSelectedExperience] = useState<WorkExperienceItem | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (cardsContainerRef.current) {
+        gsap.fromTo(
+          cardsContainerRef.current.children,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            stagger: 0.18,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: cardsContainerRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="project"
       className="relative w-full text-zinc-900 pt-16 md:pt-24 pb-24 px-6 md:px-12 lg:px-16 overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f5f5f8_35%,#ededf4_70%,#ffffff_100%)]"
     >
@@ -37,7 +69,7 @@ export const Projects: React.FC = () => {
         </div>
 
         {/* 4 Official Work Experience Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 w-full">
+        <div ref={cardsContainerRef} className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 w-full">
           {portfolioData.workExperience.map((exp) => (
             <div
               key={exp.id}

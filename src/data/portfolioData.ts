@@ -68,6 +68,7 @@ export const portfolioData = {
     photoUrl: "/assets/image/profile.png",
     cvDownloadUrl: "/assets/image/CV-TEJADILLA_c434efe9.pdf",
     whatsapp: "639452609502",
+    linkedin: "https://www.linkedin.com/in/mark-aldrin-tejadilla-044619292/",
     birthDate: "February 16, 2000",
     birthPlace: "Kuwait City",
     citizenship: "Filipino",
@@ -82,7 +83,7 @@ export const portfolioData = {
   // Real facts directly from CV (no fabricated numbers)
   stats: [
     { label: "Administrative VA", value: "2 Years" },
-    { label: "Retail Commerce", value: "Jan 2026" },
+    { label: "Retail Commerce", value: "2021–2026" },
     { label: "Aviation Degree", value: "BS Flying" },
     { label: "Verified References", value: "2 Leaders" }
   ],
@@ -250,7 +251,7 @@ export const portfolioData = {
       id: "exp-2",
       role: "Sales Associates",
       company: "By The Hype PH",
-      period: "January 2026",
+      period: "February 2021 – January 2026",
       category: "Retail Sales & E-Commerce",
       bulletPoints: [
         "Managed buying sneakers for retail via online and in-store.",
@@ -368,14 +369,20 @@ export const portfolioData = {
     }
   ] as SeminarItem[],
 
-  // Exact Special Skills from CV
+  // Exact Special Skills from CV Image
   specialSkills: [
-    "Has confidence and attentive personality",
-    "Willing to learn new things, flexible",
-    "Good in written and verbal communication",
-    "Able to work well and cooperate with others",
-    "Able to adapt with the working environment",
-    "Fast and accurate inputting of data into CRM systems"
+    "Proficient in both written and verbal communication",
+    "Time Management",
+    "CRM Management",
+    "Attention to detail",
+    "Fast learner",
+    "Administrative support",
+    "Data Entry",
+    "Excel Spreadsheets",
+    "Problem-solving",
+    "Data confidentiality",
+    "Customer and client relations",
+    "Inventory systems"
   ],
 
   // Exact Character References from CV

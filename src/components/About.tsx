@@ -1,10 +1,62 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioData } from '../data/portfolioData';
 import { Plane, Globe, Calendar, MapPin, User, Compass } from 'lucide-react';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const About: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: headerRef.current,
+              start: 'top 85%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+
+      if (cardsRef.current) {
+        gsap.fromTo(
+          cardsRef.current.children,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: cardsRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="about"
       className="relative text-zinc-900 pt-20 md:pt-28 pb-0 px-6 md:px-12 lg:px-16 flex flex-col justify-center overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f5f5f8_35%,#ededf4_70%,#ffffff_100%)]"
     >
@@ -12,7 +64,7 @@ export const About: React.FC = () => {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(0,0,0,0.03)_0%,transparent_75%)] pointer-events-none z-0" />
       <div className="max-w-[1600px] mx-auto w-full z-10 py-6 md:py-12">
         {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-200">
+        <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-6 border-b border-zinc-200">
           <div>
             <span className="text-[11px] md:text-xs uppercase tracking-[0.32em] text-zinc-500 font-mono font-bold block mb-2">
               Background & Overview
@@ -24,11 +76,11 @@ export const About: React.FC = () => {
         </div>
 
         {/* Two-Column Balanced Information Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch mb-16">
+        <div ref={cardsRef} className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch mb-16">
           
           {/* Left Column: Professional Profile Narrative */}
           <div className="lg:col-span-6 flex flex-col">
-            <div className="p-8 sm:p-10 rounded-3xl bg-white border border-zinc-200/90 shadow-lg shadow-zinc-900/5 flex flex-col justify-between h-full">
+            <div className="p-8 sm:p-10 rounded-3xl bg-white border border-zinc-200/90 shadow-lg shadow-zinc-900/5 flex flex-col justify-between h-full hover:border-black transition-colors duration-300">
               <div>
                 <span className="text-[11px] font-mono uppercase tracking-[0.26em] text-zinc-500 font-bold block mb-3">
                   Summary
@@ -50,7 +102,7 @@ export const About: React.FC = () => {
 
           {/* Right Column: Personal Bio Data Table from CV */}
           <div className="lg:col-span-6 flex flex-col">
-            <div className="w-full p-8 sm:p-10 rounded-3xl bg-white border border-zinc-200/90 shadow-lg shadow-zinc-900/5 flex flex-col justify-between h-full">
+            <div className="w-full p-8 sm:p-10 rounded-3xl bg-white border border-zinc-200/90 shadow-lg shadow-zinc-900/5 flex flex-col justify-between h-full hover:border-black transition-colors duration-300">
               <div>
                 <span className="text-[11px] font-mono uppercase tracking-[0.26em] text-zinc-500 font-bold block mb-3">
                   Personal Information

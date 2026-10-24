@@ -1,12 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioData } from '../data/portfolioData';
 import { Plane, Users, Sparkles, BookOpen, Check } from 'lucide-react';
 
+gsap.registerPlugin(ScrollTrigger);
+
 export const Credentials: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'seminars' | 'education' | 'references' | 'skills'>('seminars');
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftBoxRef = useRef<HTMLDivElement>(null);
+  const rightContentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (leftBoxRef.current && rightContentRef.current) {
+        gsap.fromTo(
+          [leftBoxRef.current, rightContentRef.current],
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.85,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
     <section
+      ref={sectionRef}
       id="credentials"
       className="relative w-full text-zinc-900 pt-16 md:pt-24 pb-24 overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f5f5f8_35%,#ededf4_70%,#ffffff_100%)]"
     >
@@ -15,8 +48,8 @@ export const Credentials: React.FC = () => {
       <div className="max-w-[1600px] mx-auto w-full flex flex-col lg:flex-row lg:items-start gap-8 lg:gap-10 px-6 md:px-12 lg:px-16">
         
         {/* Left Summary Box */}
-        <div className="w-full lg:w-[320px] xl:w-[360px] shrink-0 flex flex-col">
-          <div className="bg-white p-6 sm:p-7 border border-zinc-200/90 rounded-2xl shadow-lg shadow-zinc-900/5">
+        <div ref={leftBoxRef} className="w-full lg:w-[320px] xl:w-[360px] shrink-0 flex flex-col">
+          <div className="bg-white p-6 sm:p-7 border border-zinc-200/90 rounded-2xl shadow-lg shadow-zinc-900/5 hover:border-black transition-colors duration-300">
             <span className="text-[11px] font-mono uppercase tracking-[0.3em] text-zinc-500 font-bold block mb-3">
               Qualifications & Trust
             </span>
@@ -89,7 +122,7 @@ export const Credentials: React.FC = () => {
             >
               <span className="flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5" />
-                Special Skills
+                Special Skills ({portfolioData.specialSkills.length})
               </span>
               <span className="text-xs">→</span>
             </button>
@@ -97,7 +130,7 @@ export const Credentials: React.FC = () => {
         </div>
 
         {/* Right Content Area */}
-        <div className="flex-1 w-full min-w-0">
+        <div ref={rightContentRef} className="flex-1 w-full min-w-0">
           
           {/* TAB 1: Aviation Seminars & Training */}
           {activeTab === 'seminars' && (
@@ -249,7 +282,7 @@ export const Credentials: React.FC = () => {
                 {portfolioData.specialSkills.map((skill, i) => (
                   <div
                     key={i}
-                    className="p-4 rounded-xl bg-white border border-zinc-200/90 shadow-xs flex items-start gap-3 text-sm text-zinc-900 font-medium"
+                    className="p-4 rounded-xl bg-white border border-zinc-200/90 shadow-xs flex items-start gap-3 text-sm text-zinc-900 font-medium hover:border-black transition-colors"
                   >
                     <Check className="w-4 h-4 text-black shrink-0 mt-0.5" />
                     <span>{skill}</span>

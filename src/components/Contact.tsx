@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioData } from '../data/portfolioData';
 import { Mail, Phone, MapPin, Copy, Check, MessageSquare, Clock } from 'lucide-react';
+import { LinkedInIcon } from './LinkedInIcon';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export const Contact: React.FC = () => {
   const [copied, setCopied] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  const leftColRef = useRef<HTMLDivElement>(null);
+  const rightColRef = useRef<HTMLDivElement>(null);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(portfolioData.profile.email);
@@ -13,8 +21,34 @@ export const Contact: React.FC = () => {
 
   const whatsappUrl = `https://wa.me/${portfolioData.profile.whatsapp}?text=Hi%20Mark%20Aldrin%2C%20I%20found%20your%20portfolio%20and%20would%20like%20to%20connect.`;
 
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      if (leftColRef.current && rightColRef.current) {
+        gsap.fromTo(
+          [leftColRef.current, rightColRef.current],
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            stagger: 0.2,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          }
+        );
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="contact"
       className="relative min-h-screen text-zinc-900 font-sans flex flex-col justify-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 px-6 md:px-12 lg:px-16 bg-[radial-gradient(ellipse_at_50%_80%,#ffffff_0%,#f5f5f8_45%,#ebebf3_85%)]"
     >
@@ -25,7 +59,7 @@ export const Contact: React.FC = () => {
         <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-20 items-center justify-between">
           
           {/* Left Column: Headline & Primary Actions */}
-          <div className="w-full lg:w-7/12 flex flex-col items-start text-left">
+          <div ref={leftColRef} className="w-full lg:w-7/12 flex flex-col items-start text-left">
             <span className="text-[11px] md:text-xs uppercase tracking-[0.32em] text-zinc-500 font-mono font-bold block mb-3">
               Direct Contact & Inquiry
             </span>
@@ -38,11 +72,22 @@ export const Contact: React.FC = () => {
             </h2>
 
             <p className="text-zinc-700 text-sm sm:text-base md:text-lg font-normal leading-relaxed max-w-xl mb-8">
-              Available for Data Entry, Virtual Assistant, YouTube Scheduling, and Operations roles. Reach out directly via WhatsApp, email, or direct telephone call.
+              Available for Data Entry, Virtual Assistant, YouTube Scheduling, and Operations roles. Reach out directly via LinkedIn, WhatsApp, email, or direct telephone call.
             </p>
 
             {/* Quick Channel Buttons */}
             <div className="flex flex-wrap items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
+              {/* LinkedIn Button */}
+              <a
+                href={portfolioData.profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group px-6 py-3.5 rounded-full border border-zinc-300 bg-white text-[#0A66C2] text-sm font-bold inline-flex items-center gap-2.5 hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-all cursor-pointer shadow-xs"
+              >
+                <LinkedInIcon className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+                <span>Connect on LinkedIn</span>
+              </a>
+
               {/* WhatsApp Button */}
               <a
                 href={whatsappUrl}
@@ -65,10 +110,36 @@ export const Contact: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: Frosted Glass Contact Details Card */}
-          <div className="w-full lg:w-5/12 flex items-center">
+          {/* Right Column: Contact Details Card */}
+          <div ref={rightColRef} className="w-full lg:w-5/12 flex items-center">
             <div className="w-full rounded-3xl border border-zinc-200/90 bg-white shadow-xl shadow-zinc-900/5 overflow-hidden divide-y divide-zinc-200">
               
+              {/* LinkedIn Block */}
+              <div className="p-6 sm:p-7 flex items-center justify-between gap-4">
+                <div className="min-w-0">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-zinc-500 font-bold block mb-1">
+                    LinkedIn Network
+                  </span>
+                  <a
+                    href={portfolioData.profile.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm sm:text-base font-bold text-[#0A66C2] hover:underline truncate block"
+                  >
+                    mark-aldrin-tejadilla
+                  </a>
+                </div>
+                <a
+                  href={portfolioData.profile.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 rounded-full bg-[#0A66C2]/10 hover:bg-[#0A66C2] text-[#0A66C2] hover:text-white border border-[#0A66C2]/20 flex items-center justify-center shrink-0 transition-colors"
+                  aria-label="LinkedIn Profile"
+                >
+                  <LinkedInIcon className="w-4 h-4" />
+                </a>
+              </div>
+
               {/* Email Block */}
               <div className="p-6 sm:p-7 flex items-center justify-between gap-4">
                 <div className="min-w-0">

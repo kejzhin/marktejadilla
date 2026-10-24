@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { portfolioData } from '../data/portfolioData';
 import { Download, ArrowUpRight } from 'lucide-react';
+import { LinkedInIcon } from './LinkedInIcon';
 
 interface NavbarProps {
   activeSection: string;
@@ -190,6 +191,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
               <ArrowUpRight className="w-4 h-4" />
             </a>
           </div>
+
+          <a
+            href={portfolioData.profile.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={closeMenu}
+            className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-[#0A66C2]/40 bg-[#0A66C2]/10 text-[#0A66C2] text-xs font-bold uppercase tracking-wider"
+          >
+            <LinkedInIcon className="w-4 h-4" />
+            <span>Connect on LinkedIn</span>
+          </a>
         </div>
       </div>
     </>
