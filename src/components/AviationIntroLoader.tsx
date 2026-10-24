@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
-import { Plane, Compass, Crosshair, ShieldCheck } from 'lucide-react';
+
 
 interface AviationIntroLoaderProps {
   onComplete?: () => void;
@@ -151,22 +151,7 @@ export const AviationIntroLoader: React.FC<AviationIntroLoaderProps> = ({
       {/* Ambient Radial Vignette */}
       <div className="absolute inset-0 bg-radial from-transparent via-[#050505]/70 to-[#050505] pointer-events-none" />
 
-      {/* Top Telemetry Header Bar */}
-      <div className="absolute top-6 left-6 right-6 flex items-center justify-between text-[10px] sm:text-xs font-mono text-gray-500 uppercase tracking-widest border-b border-white/10 pb-3">
-        <div className="flex items-center gap-2 text-gray-400">
-          <Plane className="w-3.5 h-3.5 text-[var(--accent)] animate-pulse" />
-          <span>CALLSIGN: MARK-01</span>
-        </div>
-        <div className="hidden sm:flex items-center gap-4 text-gray-500">
-          <span>LAT 14.4593° N</span>
-          <span>LON 120.9482° E</span>
-          <span className="text-[var(--accent)] font-semibold">HDG 042°</span>
-        </div>
-        <div className="flex items-center gap-1.5 text-emerald-400 font-semibold">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
-          <span>SYSTEM READY</span>
-        </div>
-      </div>
+
 
       {/* Center Stage: Aeronautical Reticle & Radar Sweep */}
       <div ref={reticleRef} className="relative flex flex-col items-center justify-center my-auto">

@@ -2,12 +2,12 @@
 
 @layer base {
   :root {
-    --accent: #e8e4dc;
-    --accent-hover: #d6d1c6;
-    --accent-contrast: #050505;
-    --surface-lit: #cfc9bc;
-    --surface-lit-ink: #16150f;
-    --surface-lit-ink-soft: #2c2a22;
+    --accent: #09090b;
+    --accent-hover: #27272a;
+    --accent-contrast: #ffffff;
+    --surface-lit: #09090b;
+    --surface-lit-ink: #ffffff;
+    --surface-lit-ink-soft: #e4e4e7;
   }
 
   * {
@@ -17,8 +17,13 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    background-color: #050505;
-    color: #f3f3f3;
+    background-color: #ffffff;
+    color: #09090b;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #09090b;
   }
 
   h1, h2, h3, h4, .font-heading {
@@ -43,6 +48,20 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+/* Custom Light / White Background Utility Classes */
+.bg-white-hero-gradient {
+  background: radial-gradient(ellipse at 50% 20%, #ffffff 0%, #f3f3f6 50%, #e9e9f0 100%);
+}
+
+.bg-white-section-gradient {
+  background: linear-gradient(180deg, #ffffff 0%, #f8f8fb 35%, #f1f1f6 70%, #ffffff 100%);
+}
+
+.bg-white-card-gradient {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(245, 245, 248, 0.85) 100%);
+  border: 1px solid rgba(9, 9, 11, 0.12);
 }
 
 @keyframes marquee {
@@ -90,26 +109,6 @@
   animation: 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite halo;
 }
 
-@keyframes waterFill {
-  0% {
-    background-position: 0 0;
-  }
-  100% {
-    background-position: 0 100%;
-  }
-}
-
-.animate-water-fill {
-  background: linear-gradient(to top, var(--accent) 50%, transparent 50%);
-  color: transparent;
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
-  background-position: 0 0;
-  background-size: 100% 200%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: 2s cubic-bezier(0.4, 0, 0.2, 1) forwards waterFill;
-}
-
 .service-row {
   position: relative;
 }
@@ -117,7 +116,7 @@
 .service-row::after {
   content: "";
   height: 1px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(9, 9, 11, 0.12);
   position: absolute;
   bottom: 0;
   left: 0;
@@ -126,7 +125,7 @@
 }
 
 .service-row:hover::after {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(9, 9, 11, 0.35);
 }
 
 .hover-rule {

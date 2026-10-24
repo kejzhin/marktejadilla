@@ -12,7 +12,6 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
   const targetWord = portfolioData.profile.wordmark; // "TEJADILLA"
   const [isIntroDone, setIsIntroDone] = useState<boolean>(false);
   const [showIntroComponent, setShowIntroComponent] = useState<boolean>(true);
-  const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
   const heroContentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -22,25 +21,17 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
     onPreloadCompleteRef.current = onPreloadComplete;
   }, [onPreloadComplete]);
 
-  // Subtle starry dust particles layer matching the aesthetic
+  // Subtle ambient dust particles layer matching light theme
   const stars = useMemo(
     () =>
-      Array.from({ length: 55 }).map((_, i) => ({
+      Array.from({ length: 45 }).map((_, i) => ({
         x: (i * 37) % 100,
         y: (i * 53) % 100,
         size: i % 4 === 0 ? 2 : 1,
-        opacity: 0.15 + (i % 6) * 0.1,
+        opacity: 0.15 + (i % 6) * 0.08,
       })),
     []
   );
-
-  // Preload profile image
-  useEffect(() => {
-    const img = new window.Image();
-    img.src = portfolioData.profile.photoUrl;
-    img.onload = () => setImageLoaded(true);
-    img.onerror = () => setImageLoaded(true);
-  }, []);
 
   // Lock scroll during intro
   useEffect(() => {
@@ -75,20 +66,20 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
   return (
     <section
       id="home"
-      className="relative min-h-[100svh] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16"
+      className="relative min-h-[100svh] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16 text-zinc-900"
       style={{
-        background: 'radial-gradient(circle at 50% 35%, #181818 0%, #0c0c0c 45%, #050505 85%)',
+        background: 'radial-gradient(ellipse at 50% 20%, #ffffff 0%, #f3f3f7 45%, #e8e8f2 85%)',
       }}
     >
-      {/* Background ambient lighting */}
-      <div className="absolute inset-0 bg-black/35 backdrop-blur-[1px] pointer-events-none" />
+      {/* Light Radial Ambient Mesh */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.9)_0%,rgba(240,240,245,0.4)_60%,transparent_90%)] pointer-events-none z-0" />
 
-      {/* Starry Dust Layer */}
+      {/* Dust Layer */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         {stars.map((star, i) => (
           <span
             key={i}
-            className="absolute rounded-full bg-white pointer-events-none"
+            className="absolute rounded-full bg-zinc-400 pointer-events-none"
             style={{
               left: `${star.x}%`,
               top: `${star.y}%`,
@@ -119,71 +110,69 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
           
           {/* LEFT SIDE: About Me & Identity */}
           <div className="lg:col-span-7 xl:col-span-7 flex flex-col items-start text-left z-20">
-            
-
 
             {/* Eyebrow Label */}
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs uppercase tracking-[0.3em] font-mono text-[var(--accent)] font-bold">
+              <span className="text-xs uppercase tracking-[0.3em] font-mono text-black font-black">
                 OBJECTIVE
               </span>
-              <span className="w-10 h-px bg-[var(--accent)]/40" />
+              <span className="w-10 h-0.5 bg-black/40" />
             </div>
 
-            {/* Name Heading (Clean, bold, non-overlapping) */}
-            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-black tracking-tight uppercase leading-[0.95] drop-shadow-2xl text-white mb-4">
-              <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-100 to-gray-400">
+            {/* Name Heading */}
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-black tracking-tight uppercase leading-[0.95] drop-shadow-sm text-zinc-900 mb-4">
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-black via-zinc-900 to-zinc-700">
                 {portfolioData.profile.fullName}
               </span>
             </h1>
 
             {/* Role Subtitle */}
-            <p className="text-xl sm:text-2xl md:text-3xl text-white drop-shadow-md leading-tight mb-5">
-              <span className="font-bold tracking-tight uppercase">
+            <p className="text-xl sm:text-2xl md:text-3xl text-zinc-900 leading-tight mb-5">
+              <span className="font-black tracking-tight uppercase">
                 {portfolioData.profile.role.bold}
               </span>{' '}
-              <span className="font-serif italic text-gray-300 font-light lowercase">
+              <span className="font-serif italic text-zinc-600 font-light lowercase">
                 {portfolioData.profile.role.light}
               </span>
             </p>
 
             {/* Exact Objective Narrative */}
-            <p className="text-gray-200 text-sm sm:text-base md:text-lg leading-relaxed font-light max-w-2xl mb-6">
+            <p className="text-zinc-700 text-sm sm:text-base md:text-lg leading-relaxed font-normal max-w-2xl mb-6">
               Organized Virtual Assistant dedicated to improving accuracy and efficiency by maintaining and developing administrative and procedural processes. Focused and communicative individual possessing superb data entry, time management, and customer service skills. Offering 2 years of experience providing quality administrative support to clients.
             </p>
 
             {/* Key Capability Chips */}
             <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-8">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
                 <span>Superb Data Entry</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
                 <span>Administrative Processes</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
                 <span>Time Management</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
                 <span>Customer Service</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
-                <Plane className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <Plane className="w-3.5 h-3.5 text-black" />
                 <span>BS Aviation (Flying)</span>
               </span>
             </div>
 
-            {/* CTA Action Buttons (View Services Removed) */}
+            {/* CTA Action Buttons */}
             <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
               <a
                 href="#contact"
-                className="group flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[var(--accent)] text-black text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-[var(--accent-hover)] transition-all duration-300 shadow-lg cursor-pointer"
+                className="group flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-black text-white text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-zinc-800 transition-all duration-300 shadow-md cursor-pointer"
               >
                 <span>Get in Touch</span>
-                <div className="w-5 h-5 rounded-full bg-black/10 group-hover:bg-black group-hover:text-white flex items-center justify-center transition-colors">
+                <div className="w-5 h-5 rounded-full bg-white/20 group-hover:bg-white group-hover:text-black flex items-center justify-center transition-colors">
                   <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:rotate-45" />
                 </div>
               </a>
@@ -192,7 +181,7 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
                 href={portfolioData.profile.cvDownloadUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full border border-white/20 bg-black/40 backdrop-blur-md hover:bg-white hover:text-black hover:border-white text-xs sm:text-sm font-medium tracking-wide uppercase transition-all duration-300 cursor-pointer text-gray-200"
+                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full border border-zinc-300 bg-white text-zinc-900 hover:bg-black hover:text-white hover:border-black text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 cursor-pointer shadow-xs"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Resume (PDF)</span>
@@ -201,12 +190,12 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
 
           </div>
 
-          {/* RIGHT SIDE: Cutout Profile Picture (Pure silhouette, NO card box, NO background shape, NO border) */}
+          {/* RIGHT SIDE: Cutout Profile Picture */}
           <div className="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end items-end relative w-full pt-4 lg:pt-0">
             <div className="relative group w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] flex justify-center items-end">
               
-              {/* Subtle Ambient Backlight Halo behind silhouette */}
-              <div className="absolute inset-0 -top-10 rounded-full bg-gradient-to-t from-transparent via-white/[0.04] to-white/[0.08] blur-3xl transform scale-95 pointer-events-none" />
+              {/* Subtle Ambient Backlight Halo */}
+              <div className="absolute inset-0 -top-10 rounded-full bg-gradient-to-t from-transparent via-zinc-300/40 to-zinc-400/20 blur-3xl transform scale-95 pointer-events-none" />
 
               {/* Pure Transparent Silhouette Image */}
               <img

@@ -64,31 +64,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
           introDone ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
         } ${
           menuOpen || scrolled
-            ? 'bg-black/80 backdrop-blur-xl border-b border-white/10 shadow-lg shadow-black/40'
+            ? 'bg-white/90 backdrop-blur-xl border-b border-zinc-200/80 shadow-md shadow-zinc-900/5'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between px-6 py-4 md:px-12 md:py-5">
-          {/* Brand Wordmark */}
-          <a
-            href="#home"
-            aria-label={portfolioData.profile.fullName}
-            onClick={closeMenu}
-            className="group relative z-50 text-white font-black text-lg md:text-xl tracking-widest uppercase leading-none rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)]"
-          >
-            <span className="inline-block transition-colors duration-300 group-hover:text-[var(--accent)]">
-              {portfolioData.profile.firstName}
-              <span className="hidden md:inline-block overflow-hidden align-bottom">
-                <span className="inline-block translate-x-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-1 text-gray-400 font-light">
-                  &nbsp;{portfolioData.profile.lastName}
-                </span>
-              </span>
-            </span>
-            <span className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-[var(--accent)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
-          </a>
-
-          {/* Desktop Nav Links */}
-          <ul className="hidden md:flex items-center gap-7 lg:gap-9">
+        <div className="max-w-[1600px] mx-auto flex items-center justify-center px-6 py-4 md:px-12 md:py-5 relative">
+          {/* Desktop Centered Nav Links */}
+          <ul className="hidden md:flex items-center justify-center gap-8 lg:gap-11">
             {navLinks.map((item) => {
               const secId = item.href.replace('#', '');
               const isActive = activeSection === secId;
@@ -97,13 +79,13 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
                   <a
                     href={item.href}
                     aria-current={isActive ? 'true' : undefined}
-                    className={`group relative block py-1 text-xs lg:text-sm uppercase tracking-widest font-medium transition-colors duration-300 outline-none focus-visible:ring-1 focus-visible:ring-[var(--accent)] ${
-                      isActive ? 'text-[var(--accent)] font-semibold' : 'text-gray-300 hover:text-[var(--accent)]'
+                    className={`group relative block py-1 text-xs lg:text-sm uppercase tracking-widest font-medium transition-colors duration-300 outline-none focus-visible:ring-1 focus-visible:ring-black ${
+                      isActive ? 'text-black font-extrabold' : 'text-zinc-600 hover:text-black font-semibold'
                     }`}
                   >
                     {item.label}
                     <span
-                      className={`absolute -bottom-0.5 left-0 h-px w-full bg-[var(--accent)] origin-left transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      className={`absolute -bottom-0.5 left-0 h-0.5 w-full bg-black origin-left transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                         isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`}
                     />
@@ -120,7 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             onClick={() => setMenuOpen((prev) => !prev)}
-            className="md:hidden relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-sm text-white outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] cursor-pointer"
+            className="md:hidden relative z-50 ml-auto flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-sm text-zinc-900 outline-none focus-visible:ring-2 focus-visible:ring-black cursor-pointer"
           >
             <span
               className={`block h-0.5 w-6 bg-current transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
@@ -138,8 +120,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
         {/* Scroll Progress Bar */}
         <div
           aria-hidden="true"
-          className={`h-[2px] w-full origin-left bg-[var(--accent)] transition-opacity duration-300 ${
-            scrolled ? 'opacity-80' : 'opacity-0'
+          className={`h-[2px] w-full origin-left bg-black transition-opacity duration-300 ${
+            scrolled ? 'opacity-90' : 'opacity-0'
           }`}
           style={{ transform: `scaleX(${scrollProgress})` }}
         />
@@ -149,12 +131,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
       <div
         id="mobile-menu"
         aria-hidden={!menuOpen}
-        className={`fixed inset-0 z-40 flex flex-col justify-between bg-[#0a0a0a]/98 backdrop-blur-2xl px-6 py-24 transition-[opacity,visibility] duration-500 ease-out md:hidden ${
+        className={`fixed inset-0 z-40 flex flex-col justify-between bg-white/98 text-zinc-900 backdrop-blur-2xl px-6 py-24 transition-[opacity,visibility] duration-500 ease-out md:hidden ${
           menuOpen ? 'visible opacity-100 pointer-events-auto' : 'invisible opacity-0 pointer-events-none'
         }`}
       >
         <div className="flex flex-col items-start gap-6 mt-8">
-          <span className="text-[11px] uppercase tracking-[0.3em] text-gray-500">Navigation</span>
+          <span className="text-[11px] uppercase tracking-[0.3em] text-zinc-500 font-semibold">Navigation</span>
           <ul className="flex flex-col gap-5 w-full">
             {navLinks.map((item, idx) => {
               const secId = item.href.replace('#', '');
@@ -171,7 +153,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
                     href={item.href}
                     onClick={closeMenu}
                     className={`block text-3xl font-black uppercase tracking-wider transition-colors duration-300 outline-none ${
-                      isActive ? 'text-[var(--accent)]' : 'text-white hover:text-[var(--accent)]'
+                      isActive ? 'text-black font-black' : 'text-zinc-600 hover:text-black'
                     }`}
                   >
                     {item.label}
@@ -183,8 +165,8 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
         </div>
 
         {/* Mobile Menu Footer Actions */}
-        <div className="flex flex-col gap-4 border-t border-white/10 pt-6">
-          <div className="flex items-center justify-between text-xs text-gray-400">
+        <div className="flex flex-col gap-4 border-t border-zinc-200 pt-6">
+          <div className="flex items-center justify-between text-xs text-zinc-600 font-mono">
             <span>{portfolioData.profile.shortLocation}</span>
             <span>{portfolioData.profile.phone}</span>
           </div>
@@ -194,7 +176,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
               target="_blank"
               rel="noopener noreferrer"
               onClick={closeMenu}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-white/20 text-xs font-semibold text-white bg-white/[0.04]"
+              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-zinc-300 text-xs font-bold text-zinc-900 bg-zinc-100"
             >
               <Download className="w-4 h-4" />
               <span>Resume PDF</span>
@@ -202,7 +184,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
             <a
               href="#contact"
               onClick={closeMenu}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[var(--accent)] text-black text-xs font-bold uppercase tracking-wider"
+              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-black text-white text-xs font-bold uppercase tracking-wider"
             >
               <span>Contact</span>
               <ArrowUpRight className="w-4 h-4" />

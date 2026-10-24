@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { portfolioData, ServiceItem } from '../data/portfolioData';
-import { ArrowUpRight, CheckCircle2, ChevronDown } from 'lucide-react';
+import { CheckCircle2, ChevronDown } from 'lucide-react';
 
 interface ServicesProps {
   onSelectService?: (service: ServiceItem) => void;
@@ -17,31 +17,25 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
   return (
     <section
       id="service"
-      className="bg-[#050505] text-white pt-16 md:pt-24 pb-0 px-6 md:px-12 lg:px-16 flex flex-col relative overflow-hidden"
+      className="relative text-zinc-900 pt-16 md:pt-24 pb-0 px-4 sm:px-6 md:px-12 lg:px-16 flex flex-col overflow-hidden bg-[linear-gradient(180deg,#ffffff_0%,#f5f5f9_40%,#ebebf3_80%,#ffffff_100%)]"
     >
-      {/* Section Header: Aligned Right */}
-      <div className="max-w-[1600px] mx-auto w-full flex flex-col md:flex-row items-end justify-end pb-10 md:pb-14">
-        <div className="text-right">
-          <span className="text-[11px] md:text-xs uppercase tracking-[0.32em] text-gray-400 font-mono font-medium block mb-3">
-            Expertise & Capabilities
+      {/* Light Ambient Aura */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(0,0,0,0.02)_0%,transparent_80%)] pointer-events-none z-0" />
+      
+      {/* Section Header: Left on Mobile, Right on Desktop */}
+      <div className="max-w-[1600px] mx-auto w-full flex flex-col items-start md:items-end justify-start md:justify-end pb-8 md:pb-14">
+        <div className="text-left md:text-right">
+          <span className="text-[11px] md:text-xs uppercase tracking-[0.32em] text-zinc-500 font-mono font-bold block mb-2">
+            Capabilities & Focus Areas
           </span>
-          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter drop-shadow-2xl leading-[1.05] md:leading-[0.9] uppercase text-right">
-            <span className="block overflow-hidden pb-[0.06em]">
-              <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-800">
-                WHAT WE
-              </span>
-            </span>
-            <span className="block overflow-hidden pb-[0.06em]">
-              <span className="block text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-800">
-                CAN DO
-              </span>
-            </span>
+          <h2 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-black via-zinc-900 to-zinc-700 leading-none uppercase">
+            Services
           </h2>
         </div>
       </div>
 
-      {/* Interactive Service Rows */}
-      <div className="relative mt-0 -mx-6 md:-mx-12 lg:-mx-16 border-t border-white/20">
+      {/* Accordion List */}
+      <div className="w-full flex flex-col">
         {portfolioData.services.map((item) => {
           const isExpanded = activeId === item.id;
           const isHovered = hoveredId === item.id;
@@ -51,30 +45,30 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
             <div
               key={item.id}
               data-service-row="true"
-              className={`service-row relative py-6 md:py-8 px-6 md:px-12 lg:px-16 cursor-pointer transition-colors duration-400 ease-out select-none ${
-                isLit ? 'bg-[var(--surface-lit)] text-[var(--surface-lit-ink)]' : 'text-white hover:bg-white/[0.03]'
+              className={`service-row relative py-5 sm:py-6 md:py-8 px-4 sm:px-6 md:px-12 lg:px-16 cursor-pointer transition-colors duration-400 ease-out select-none ${
+                isLit ? 'bg-black text-white' : 'text-zinc-900 hover:bg-zinc-100'
               }`}
               onClick={() => toggleRow(item.id)}
               onMouseEnter={() => setHoveredId(item.id)}
               onMouseLeave={() => setHoveredId(null)}
             >
-              <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row justify-between items-start gap-4">
+              <div className="max-w-[1600px] mx-auto flex flex-col lg:flex-row justify-between items-start gap-3 sm:gap-4">
                 
-                {/* Left Side: ID + Title + Accordion Content */}
-                <div className="flex items-start justify-between w-full lg:w-7/12 gap-4">
-                  <div className="flex items-start gap-4 sm:gap-8 md:gap-14 w-full min-w-0">
+                {/* Left Side: Dot Indicator + Title + Accordion Content */}
+                <div className="flex items-start justify-between w-full lg:w-7/12 gap-3 sm:gap-4">
+                  <div className="flex items-start gap-3 sm:gap-5 md:gap-10 w-full min-w-0">
                     {/* Circle / Dot Shape Indicator */}
-                    <div className="h-8 md:h-10 flex items-center shrink-0">
+                    <div className="h-7 sm:h-8 md:h-10 flex items-center shrink-0 pt-0.5 sm:pt-0">
                       <span
                         className={`relative flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full border transition-all duration-300 ${
                           isLit
-                            ? 'border-black bg-black/10'
-                            : 'border-white/20 bg-white/[0.04]'
+                            ? 'border-white bg-white/20'
+                            : 'border-zinc-300 bg-zinc-100'
                         }`}
                       >
                         <span
                           className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
-                            isLit ? 'bg-black scale-110' : 'bg-gray-400'
+                            isLit ? 'bg-white scale-110' : 'bg-black'
                           }`}
                         />
                       </span>
@@ -82,16 +76,16 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
 
                     {/* Service Title & Expandable Capabilities */}
                     <div className="flex flex-col w-full min-w-0">
-                      <div className="min-h-8 md:min-h-10 flex items-center justify-between gap-2">
+                      <div className="min-h-7 sm:min-h-8 md:min-h-10 flex items-center justify-between gap-3 w-full">
                         <h3
-                          className={`text-xs sm:text-base md:text-xl lg:text-2xl font-black uppercase tracking-wider leading-snug transition-colors duration-300 ${
-                            isLit ? 'text-[var(--surface-lit-ink)]' : 'text-white'
+                          className={`text-sm sm:text-base md:text-xl lg:text-2xl font-black uppercase tracking-wider leading-snug transition-colors duration-300 ${
+                            isLit ? 'text-white' : 'text-zinc-900'
                           }`}
                         >
                           {item.title}
                         </h3>
                         <ChevronDown
-                          className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 transition-transform duration-300 lg:hidden ${
+                          className={`w-4 h-4 sm:w-5 sm:h-5 shrink-0 ml-auto transition-transform duration-300 lg:hidden ${
                             isExpanded ? 'rotate-180' : ''
                           }`}
                         />
@@ -100,12 +94,12 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                       {/* Expandable Accordion Body */}
                       <div
                         className={`overflow-hidden transition-all duration-500 ease-in-out w-full ${
-                          isExpanded ? 'max-h-[600px] opacity-100 pt-6' : 'max-h-0 opacity-0'
+                          isExpanded ? 'max-h-[600px] opacity-100 pt-4 sm:pt-6' : 'max-h-0 opacity-0'
                         }`}
                       >
                         <p
-                          className={`text-sm md:text-base leading-relaxed mb-5 font-light ${
-                            isLit ? 'text-[var(--surface-lit-ink-soft)]' : 'text-gray-300'
+                          className={`text-xs sm:text-sm md:text-base leading-relaxed mb-4 sm:mb-5 font-normal ${
+                            isLit ? 'text-zinc-300' : 'text-zinc-700'
                           }`}
                         >
                           {item.description}
@@ -113,8 +107,8 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
 
                         <div className="space-y-2.5">
                           <span
-                            className={`text-[11px] font-mono uppercase tracking-widest font-semibold block ${
-                              isLit ? 'text-[var(--surface-lit-ink)]' : 'text-gray-400'
+                            className={`text-[10px] sm:text-[11px] font-mono uppercase tracking-widest font-bold block ${
+                              isLit ? 'text-white' : 'text-zinc-900'
                             }`}
                           >
                             Key Deliverables:
@@ -123,11 +117,11 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                             {item.capabilities.map((cap, i) => (
                               <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm leading-snug">
                                 <CheckCircle2
-                                  className={`w-4 h-4 shrink-0 mt-0.5 ${
-                                    isLit ? 'text-black' : 'text-[var(--accent)]'
+                                  className={`w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0 mt-0.5 ${
+                                    isLit ? 'text-white' : 'text-black'
                                   }`}
                                 />
-                                <span className={isLit ? 'text-[var(--surface-lit-ink)]' : 'text-gray-200'}>
+                                <span className={isLit ? 'text-zinc-200' : 'text-zinc-800'}>
                                   {cap}
                                 </span>
                               </li>
@@ -139,11 +133,11 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                   </div>
                 </div>
 
-                {/* Right Side: Tagline summary & Action Button */}
-                <div className="w-full lg:w-4/12 flex flex-col lg:items-end justify-between pt-2 lg:pt-0 gap-4">
+                {/* Right Side: Tagline summary */}
+                <div className="w-full lg:w-4/12 flex flex-col lg:items-end justify-between pt-1 sm:pt-2 lg:pt-0 gap-3 sm:gap-4 pl-8 sm:pl-11 lg:pl-0">
                   <p
-                    className={`text-xs sm:text-sm font-light leading-relaxed max-w-sm ${
-                      isLit ? 'text-[var(--surface-lit-ink-soft)]' : 'text-gray-400'
+                    className={`text-xs sm:text-sm font-normal leading-relaxed max-w-sm ${
+                      isLit ? 'text-zinc-300' : 'text-zinc-600'
                     }`}
                   >
                     {item.tagline}
