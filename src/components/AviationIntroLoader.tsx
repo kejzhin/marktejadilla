@@ -258,17 +258,7 @@ export const AviationIntroLoader: React.FC<AviationIntroLoaderProps> = ({
 
       </div>
 
-      {/* Bottom Mission Status Footer */}
-      <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between text-[10px] sm:text-xs font-mono text-gray-500 uppercase tracking-widest border-t border-white/10 pt-3">
-        <span className="text-gray-400">AIRLINK INTERNATIONAL AVIATION COLLEGE</span>
-        <button
-          type="button"
-          onClick={() => onCompleteRef.current?.()}
-          className="hover:text-white transition-colors cursor-pointer text-gray-400 underline decoration-dotted"
-        >
-          SKIP INTRO →
-        </button>
-      </div>
+
 
     </div>
   );
