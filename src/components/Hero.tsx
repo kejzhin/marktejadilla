@@ -1,42 +1,31 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import gsap from 'gsap';
 import { portfolioData } from '../data/portfolioData';
-import { WordmarkIntro } from './WordmarkIntro';
-import { ArrowUpRight } from 'lucide-react';
+import { AviationIntroLoader } from './AviationIntroLoader';
+import { ArrowUpRight, Download, CheckCircle2, Plane } from 'lucide-react';
 
 interface HeroProps {
   onPreloadComplete?: () => void;
 }
 
-const TITLE_CLASSES =
-  'flex items-baseline text-[12vw] sm:text-[13vw] md:text-[9.5rem] lg:text-[13rem] font-black tracking-tighter drop-shadow-2xl leading-none uppercase select-none';
-const GRADIENT_TEXT_CLASSES =
-  'text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-700';
-
 export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
   const targetWord = portfolioData.profile.wordmark; // "TEJADILLA"
-  const [displayedText, setDisplayedText] = useState<string>(targetWord);
   const [isIntroDone, setIsIntroDone] = useState<boolean>(false);
   const [showIntroComponent, setShowIntroComponent] = useState<boolean>(true);
   const [imageLoaded, setImageLoaded] = useState<boolean>(false);
 
-  const containerRef = useRef<HTMLDivElement>(null);
-  const titleWrapperRef = useRef<HTMLDivElement>(null);
-  const h1Ref = useRef<HTMLHeadingElement>(null);
-  const leftHalfRef = useRef<HTMLSpanElement>(null);
-  const rightHalfRef = useRef<HTMLSpanElement>(null);
-  const roleRef = useRef<HTMLParagraphElement>(null);
-  const actionsRef = useRef<HTMLDivElement>(null);
+  const heroContentRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLImageElement>(null);
   const onPreloadCompleteRef = useRef(onPreloadComplete);
 
   useEffect(() => {
     onPreloadCompleteRef.current = onPreloadComplete;
   }, [onPreloadComplete]);
 
-  // Generate subtle starry dust specks matching demo screenshot
+  // Subtle starry dust particles layer matching the aesthetic
   const stars = useMemo(
     () =>
-      Array.from({ length: 60 }).map((_, i) => ({
+      Array.from({ length: 55 }).map((_, i) => ({
         x: (i * 37) % 100,
         y: (i * 53) % 100,
         size: i % 4 === 0 ? 2 : 1,
@@ -46,17 +35,11 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
   );
 
   // Preload profile image
-  const imagePromise = useMemo(() => {
-    return new Promise<void>((resolve) => {
-      const img = new window.Image();
-      img.src = portfolioData.profile.photoUrl;
-      if (img.complete) {
-        resolve();
-      } else {
-        img.onload = () => resolve();
-        img.onerror = () => resolve();
-      }
-    });
+  useEffect(() => {
+    const img = new window.Image();
+    img.src = portfolioData.profile.photoUrl;
+    img.onload = () => setImageLoaded(true);
+    img.onerror = () => setImageLoaded(true);
   }, []);
 
   // Lock scroll during intro
@@ -70,114 +53,37 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
     };
   }, []);
 
-  // Once WordmarkIntro completes, trigger scramble to "PORTFOLIO" & slide down transition
-  useEffect(() => {
-    if (!isIntroDone) return;
+  // Handle intro completion: unlock scroll and smoothly reveal the 2-column layout
+  const handleIntroComplete = () => {
+    setIsIntroDone(true);
+    document.body.style.overflow = 'auto';
+    onPreloadCompleteRef.current?.();
 
-    let isMounted = true;
-    let scrambleInterval: NodeJS.Timeout | undefined;
-    let ctx: gsap.Context | undefined;
-    const finalWord = 'PORTFOLIO';
-    const initialWord = targetWord;
-    let step = 0;
+    setTimeout(() => {
+      setShowIntroComponent(false);
 
-    imagePromise.then(() => {
-      if (!isMounted) return;
-
-      scrambleInterval = setInterval(() => {
-        setDisplayedText(
-          finalWord
-            .split('')
-            .map((char, idx) => {
-              if (idx < Math.floor(step)) return finalWord[idx];
-              if (idx < initialWord.length) return initialWord[idx];
-              return '';
-            })
-            .join('')
+      if (heroContentRef.current) {
+        gsap.fromTo(
+          heroContentRef.current,
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1.1, ease: 'power3.out' }
         );
-
-        if (step >= finalWord.length) {
-          clearInterval(scrambleInterval);
-
-          ctx = gsap.context(() => {
-            const tl = gsap.timeline({
-              onComplete: () => {
-                document.body.style.overflow = 'auto';
-                setImageLoaded(true);
-                onPreloadCompleteRef.current?.();
-              },
-            });
-
-            const isMobile = window.innerWidth < 768;
-
-            // Glide wordmark from vertical center (50%) to upper-third (20% on mobile) or lower-third (72% on desktop)
-            tl.to(
-              titleWrapperRef.current,
-              {
-                top: isMobile ? '20%' : '72%',
-                duration: 1.5,
-                ease: 'power3.inOut',
-              },
-              '+=0.15'
-            );
-
-            // Animate role & contact button in
-            tl.fromTo(
-              [roleRef.current, actionsRef.current],
-              { y: 35, opacity: 0 },
-              { y: 0, opacity: 1, duration: 1.2, stagger: 0.18, ease: 'power3.out' },
-              '-=1.0'
-            );
-
-            // Split the two halves horizontally on desktop to frame the silhouette
-            const splitDistance = isMobile
-              ? 0
-              : Math.min(320, window.innerWidth * 0.22);
-
-            if (!isMobile) {
-              tl.to(
-                leftHalfRef.current,
-                { x: -splitDistance / 2, duration: 1.5, ease: 'power3.out' },
-                '<'
-              );
-              tl.to(
-                rightHalfRef.current,
-                { x: splitDistance / 2, duration: 1.5, ease: 'power3.out' },
-                '<'
-              );
-            }
-          });
-        }
-
-        step += 1 / 3;
-      }, 45);
-    });
-
-    return () => {
-      isMounted = false;
-      if (scrambleInterval) clearInterval(scrambleInterval);
-      ctx?.revert();
-    };
-  }, [isIntroDone, imagePromise, targetWord]);
-
-  // Split string in half for the horizontal reveal
-  const splitPoint = Math.ceil(displayedText.length / 2);
-  const leftText = displayedText.slice(0, splitPoint);
-  const rightText = displayedText.slice(splitPoint);
+      }
+    }, 350);
+  };
 
   return (
     <section
       id="home"
-      ref={containerRef}
-      className="relative min-h-[100svh] flex items-end justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
+      className="relative min-h-[100svh] flex items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16"
       style={{
         background: 'radial-gradient(circle at 50% 35%, #181818 0%, #0c0c0c 45%, #050505 85%)',
       }}
     >
-      {/* Background ambient lighting & starry specks */}
+      {/* Background ambient lighting */}
       <div className="absolute inset-0 bg-black/35 backdrop-blur-[1px] pointer-events-none" />
 
-      {/* Starry Dust Layer matching demo screenshot */}
+      {/* Starry Dust Layer */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
         {stars.map((star, i) => (
           <span
@@ -194,97 +100,128 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
         ))}
       </div>
 
-      {/* Main Animated Title & Headers Container */}
+      {/* Standalone Centered Aviation Telemetry Intro Loading Screen */}
+      {showIntroComponent && (
+        <AviationIntroLoader
+          targetWord={targetWord}
+          onComplete={handleIntroComplete}
+        />
+      )}
+
+      {/* Main 2-Column Hero: About Me on the Left, Profile Picture on the Right */}
       <div
-        ref={titleWrapperRef}
-        className="absolute top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none select-none flex flex-col items-center justify-center w-max max-w-full px-2"
-      >
-        {/* Scrambled & Split Title */}
-        <h1
-          ref={h1Ref}
-          className={`${TITLE_CLASSES} ${GRADIENT_TEXT_CLASSES} transition-opacity duration-300 ${
-            isIntroDone ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <span ref={leftHalfRef} className="inline-block will-change-transform">
-            {leftText}
-          </span>
-          <span ref={rightHalfRef} className="inline-block will-change-transform">
-            {rightText}
-          </span>
-        </h1>
-
-        {/* Wordmark Physics Intro Loader Animation */}
-        {showIntroComponent && (
-          <div
-            className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-              isIntroDone ? 'opacity-0 pointer-events-none' : 'opacity-100'
-            }`}
-          >
-            <WordmarkIntro
-              word={targetWord}
-              className={TITLE_CLASSES}
-              letterClassName={GRADIENT_TEXT_CLASSES}
-              dotClassName="bg-[var(--accent)]"
-              speed={1.15}
-              onComplete={() => {
-                setIsIntroDone(true);
-                setTimeout(() => setShowIntroComponent(false), 320);
-              }}
-            />
-          </div>
-        )}
-
-        {/* Role Subtitle Text (Positioned to match demo screenshot with zero overlap) */}
-        <p
-          ref={roleRef}
-          className="absolute -bottom-8 sm:-bottom-10 md:-bottom-14 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-6 text-white text-sm sm:text-lg md:text-2xl lg:text-3xl drop-shadow-md z-30 opacity-0 w-max text-center md:text-left pointer-events-auto"
-        >
-          <span className="font-bold tracking-tight uppercase">
-            {portfolioData.profile.role.bold}
-          </span>{' '}
-          <span className="font-serif italic text-gray-300 font-light lowercase">
-            {portfolioData.profile.role.light}
-          </span>
-        </p>
-
-        {/* Contact Action Buttons (Matching demo round arrow + Contact pill) */}
-        <div
-          ref={actionsRef}
-          className="absolute -bottom-20 sm:-bottom-24 md:-bottom-14 left-1/2 -translate-x-1/2 md:translate-x-0 md:left-auto md:right-6 flex items-center gap-2 sm:gap-3 pointer-events-auto z-30 opacity-0 w-max"
-        >
-          <a
-            href="#contact"
-            aria-label="Direct contact"
-            className="group w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 rounded-full border border-gray-400/35 flex items-center justify-center backdrop-blur-md bg-black/30 hover:bg-white hover:border-white transition-all duration-300 cursor-pointer"
-          >
-            <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-300 group-hover:text-black group-hover:rotate-45 transition-all duration-300" />
-          </a>
-          <a
-            href="#contact"
-            className="px-4 py-1.5 sm:px-5 sm:py-2.5 rounded-full border border-gray-400/35 flex items-center justify-center backdrop-blur-md bg-black/30 hover:bg-white/10 hover:border-gray-400/60 transition-all cursor-pointer text-xs sm:text-sm font-light italic text-gray-200"
-          >
-            <span>Contact</span>
-          </a>
-        </div>
-      </div>
-
-      {/* Center Display Picture: Pure Cutout Silhouette (NO card box, NO background shape, NO border, NO badge) */}
-      <div
-        className={`absolute inset-x-0 bottom-0 z-10 text-center flex flex-col items-center justify-end w-full pointer-events-none transition-opacity duration-1000 ${
-          imageLoaded ? 'opacity-100' : 'opacity-0'
+        ref={heroContentRef}
+        className={`relative z-10 w-full max-w-[1600px] mx-auto px-6 md:px-12 lg:px-16 transition-opacity duration-700 ${
+          isIntroDone ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        <div className="relative w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[380px] md:max-w-[460px] lg:max-w-[540px] flex justify-center items-end">
-          <img
-            src={portfolioData.profile.photoUrl}
-            alt={portfolioData.profile.fullName}
-            className="w-full h-auto max-h-[58vh] sm:max-h-[64vh] md:max-h-[72vh] lg:max-h-[78vh] object-contain object-bottom pointer-events-auto select-none"
-            style={{
-              maskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 85%, transparent 100%)',
-            }}
-          />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-center min-h-[calc(100vh-10rem)]">
+          
+          {/* LEFT SIDE: About Me & Identity */}
+          <div className="lg:col-span-7 xl:col-span-7 flex flex-col items-start text-left z-20">
+            
+
+
+            {/* Eyebrow Label */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-xs uppercase tracking-[0.3em] font-mono text-[var(--accent)] font-bold">
+                OBJECTIVE
+              </span>
+              <span className="w-10 h-px bg-[var(--accent)]/40" />
+            </div>
+
+            {/* Name Heading (Clean, bold, non-overlapping) */}
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-[4.75rem] font-black tracking-tight uppercase leading-[0.95] drop-shadow-2xl text-white mb-4">
+              <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-100 to-gray-400">
+                {portfolioData.profile.fullName}
+              </span>
+            </h1>
+
+            {/* Role Subtitle */}
+            <p className="text-xl sm:text-2xl md:text-3xl text-white drop-shadow-md leading-tight mb-5">
+              <span className="font-bold tracking-tight uppercase">
+                {portfolioData.profile.role.bold}
+              </span>{' '}
+              <span className="font-serif italic text-gray-300 font-light lowercase">
+                {portfolioData.profile.role.light}
+              </span>
+            </p>
+
+            {/* Exact Objective Narrative */}
+            <p className="text-gray-200 text-sm sm:text-base md:text-lg leading-relaxed font-light max-w-2xl mb-6">
+              Organized Virtual Assistant dedicated to improving accuracy and efficiency by maintaining and developing administrative and procedural processes. Focused and communicative individual possessing superb data entry, time management, and customer service skills. Offering 2 years of experience providing quality administrative support to clients.
+            </p>
+
+            {/* Key Capability Chips */}
+            <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-8">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span>Superb Data Entry</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span>Administrative Processes</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span>Time Management</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
+                <CheckCircle2 className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span>Customer Service</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
+                <Plane className="w-3.5 h-3.5 text-[var(--accent)]" />
+                <span>BS Aviation (Flying)</span>
+              </span>
+            </div>
+
+            {/* CTA Action Buttons (View Services Removed) */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 w-full sm:w-auto">
+              <a
+                href="#contact"
+                className="group flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-full bg-[var(--accent)] text-black text-xs sm:text-sm font-bold tracking-wider uppercase hover:bg-[var(--accent-hover)] transition-all duration-300 shadow-lg cursor-pointer"
+              >
+                <span>Get in Touch</span>
+                <div className="w-5 h-5 rounded-full bg-black/10 group-hover:bg-black group-hover:text-white flex items-center justify-center transition-colors">
+                  <ArrowUpRight className="w-3 h-3 transition-transform duration-300 group-hover:rotate-45" />
+                </div>
+              </a>
+
+              <a
+                href={portfolioData.profile.cvDownloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full border border-white/20 bg-black/40 backdrop-blur-md hover:bg-white hover:text-black hover:border-white text-xs sm:text-sm font-medium tracking-wide uppercase transition-all duration-300 cursor-pointer text-gray-200"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Resume (PDF)</span>
+              </a>
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDE: Cutout Profile Picture (Pure silhouette, NO card box, NO background shape, NO border) */}
+          <div className="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end items-end relative w-full pt-4 lg:pt-0">
+            <div className="relative group w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] flex justify-center items-end">
+              
+              {/* Subtle Ambient Backlight Halo behind silhouette */}
+              <div className="absolute inset-0 -top-10 rounded-full bg-gradient-to-t from-transparent via-white/[0.04] to-white/[0.08] blur-3xl transform scale-95 pointer-events-none" />
+
+              {/* Pure Transparent Silhouette Image */}
+              <img
+                ref={imageRef}
+                src={portfolioData.profile.photoUrl}
+                alt={portfolioData.profile.fullName}
+                className="w-full h-auto max-h-[55vh] sm:max-h-[62vh] md:max-h-[70vh] lg:max-h-[78vh] xl:max-h-[82vh] object-contain object-bottom select-none transition-transform duration-700 ease-out group-hover:scale-[1.015]"
+                style={{
+                  maskImage: 'linear-gradient(to bottom, black 0%, black 86%, transparent 100%)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 86%, transparent 100%)',
+                }}
+              />
+            </div>
+          </div>
+
         </div>
       </div>
     </section>

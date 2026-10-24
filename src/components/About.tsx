@@ -1,119 +1,136 @@
 import React from 'react';
 import { portfolioData } from '../data/portfolioData';
-import { Plane, Database, Video, ShoppingBag, Globe, Calendar, MapPin, Award } from 'lucide-react';
+import { Plane, Award, Globe, Calendar, MapPin, User, Check, Compass, FileText } from 'lucide-react';
 
 export const About: React.FC = () => {
   return (
     <section
       id="about"
-      className="bg-[#050505] text-white pt-24 md:pt-32 pb-0 px-6 md:px-12 lg:px-16 flex flex-col justify-center relative overflow-hidden"
+      className="bg-[#050505] text-white pt-20 md:pt-28 pb-0 px-6 md:px-12 lg:px-16 flex flex-col justify-center relative overflow-hidden"
     >
-      <div className="max-w-[1600px] mx-auto w-full z-10 py-8 md:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 md:gap-14 lg:gap-20 items-center">
-          
-          {/* Left Column: Eyebrow + Massive "Intro" */}
-          <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-            <span className="text-[11px] md:text-xs uppercase tracking-[0.34em] text-gray-500 mb-4 md:mb-6 font-mono font-medium">
-              About me
+      <div className="max-w-[1600px] mx-auto w-full z-10 py-6 md:py-12">
+        {/* Section Header */}
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 pb-6 border-b border-white/10">
+          <div>
+            <span className="text-[11px] md:text-xs uppercase tracking-[0.32em] text-gray-400 font-mono font-medium block mb-2">
+              Background & Credentials
             </span>
-            <h2 className="max-w-full overflow-hidden text-[18vw] sm:text-[16vw] md:text-[9rem] lg:text-[11rem] xl:text-[13rem] font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-300 to-gray-800 drop-shadow-2xl leading-[0.85] select-none">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-600 drop-shadow-2xl leading-none uppercase">
               Intro
             </h2>
-            <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-2.5">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
-                <MapPin className="w-3.5 h-3.5 text-[var(--accent)]" />
-                {portfolioData.profile.shortLocation}
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
-                <Plane className="w-3.5 h-3.5 text-[var(--accent)]" />
-                BS Aviation (Flying)
-              </span>
-            </div>
           </div>
 
-          {/* Right Column: Frosted Glass Narrative Card */}
-          <div className="relative bg-white/5 backdrop-blur-md px-6 py-8 sm:p-10 lg:p-12 rounded-3xl border border-white/10 shadow-[0_8px_30px_rgb(0,0,0,0.25)] hover:bg-white/[0.07] transition-colors duration-300 text-left">
-            <div className="space-y-6">
-              <p className="text-gray-200 text-base sm:text-lg md:text-xl leading-[1.75] font-light">
-                <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">
-                  Hey, I&apos;m {portfolioData.profile.fullName}.
-                </span>{' '}
-                A Data Entry Specialist, Admin Virtual Assistant, and Aviation Flying Graduate with a multidisciplinary track record spanning CRM database administration, employee time audits, social media video scheduling, Canva multimedia production, and high-velocity sneaker resale commerce.
-              </p>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
+              <MapPin className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span>{portfolioData.profile.shortLocation}</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-mono text-gray-300">
+              <Plane className="w-3.5 h-3.5 text-[var(--accent)]" />
+              <span>BS Aviation (Flying)</span>
+            </span>
+          </div>
+        </div>
 
-              {/* CV Objective Quote */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-black/40 border border-white/10 text-gray-300 text-sm sm:text-base italic leading-relaxed font-serif">
+        {/* Two-Column Structured Information Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-16">
+          
+          {/* Left Column: Objective & Background Narrative */}
+          <div className="lg:col-span-7 flex flex-col gap-6 text-left">
+            
+            {/* Prominent Career Objective Quote from CV */}
+            <div className="w-full p-6 sm:p-8 rounded-3xl bg-gradient-to-br from-white/[0.06] to-white/[0.02] border border-white/15 backdrop-blur-md shadow-xl relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 text-[var(--accent)] opacity-20 font-serif text-7xl leading-none select-none pointer-events-none">
+                “
+              </div>
+              <span className="text-[11px] font-mono uppercase tracking-[0.28em] text-[var(--accent)] font-bold block mb-3">
+                Career Objective (from Official CV)
+              </span>
+              <p className="text-gray-100 text-base sm:text-lg italic font-serif leading-relaxed relative z-10">
                 &ldquo;{portfolioData.profile.objective}&rdquo;
+              </p>
+            </div>
+
+            {/* Profile Narrative Description */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-white/[0.03] border border-white/10">
+              <h3 className="text-lg font-bold text-white uppercase tracking-wider mb-3">
+                Professional Profile
+              </h3>
+              <p className="text-gray-300 text-sm sm:text-base leading-relaxed font-light mb-4">
+                Dedicated professional bringing flight-training procedural discipline, checklist precision, and calm problem-solving to high-volume remote operations. Experienced across CRM data pipelines, employee time logging, truck fleet operational monitoring, YouTube release scheduling, Canva video editing, and high-velocity retail sneaker reselling at By The Hype PH.
+              </p>
+              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed font-mono">
+                Graduate of Bachelor of Science in Aviation Major in Flying (Airlink International Aviation College, Jan 2025).
+              </p>
+            </div>
+
+          </div>
+
+          {/* Right Column: Personal Bio Data Table & Special Skills from CV */}
+          <div className="lg:col-span-5 flex flex-col gap-6 text-left">
+            
+            {/* Comprehensive Personal Information Table from CV */}
+            <div className="w-full p-6 sm:p-7 rounded-3xl bg-neutral-950/80 border border-white/10 shadow-lg">
+              <span className="text-[11px] font-mono uppercase tracking-[0.26em] text-gray-400 font-semibold block mb-4">
+                Personal Background (from CV)
+              </span>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs sm:text-sm">
+                <div className="flex items-center gap-2.5 text-gray-300">
+                  <Calendar className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                  <span><strong>Date of Birth:</strong> {portfolioData.profile.birthDate}</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-gray-300">
+                  <MapPin className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                  <span><strong>Place of Birth:</strong> {portfolioData.profile.birthPlace}</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-gray-300">
+                  <User className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                  <span><strong>Citizenship:</strong> {portfolioData.profile.citizenship} · Single</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-gray-300">
+                  <Globe className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                  <span><strong>Languages:</strong> {portfolioData.profile.languages.join(', ')}</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-gray-300">
+                  <Compass className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                  <span><strong>Height:</strong> {portfolioData.profile.height} · Roman Catholic</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-gray-300">
+                  <Plane className="w-4 h-4 text-[var(--accent)] shrink-0" />
+                  <span><strong>Degree:</strong> BS Aviation (Flying)</span>
+                </div>
               </div>
 
-              {/* Personal Information & Education Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-white/10 text-sm">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <Plane className="w-4 h-4 text-[var(--accent)]" />
-                  </div>
-                  <div>
-                    <span className="block text-[11px] font-mono text-gray-400 uppercase tracking-wider">Aviation Degree</span>
-                    <span className="text-white font-medium">BS Aviation Major in Flying</span>
-                    <span className="block text-xs text-gray-400">Airlink Int. Aviation College (2025)</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <Award className="w-4 h-4 text-[var(--accent)]" />
-                  </div>
-                  <div>
-                    <span className="block text-[11px] font-mono text-gray-400 uppercase tracking-wider">STEM Background</span>
-                    <span className="text-white font-medium">Univ. of Perpetual Help DALTA</span>
-                    <span className="block text-xs text-gray-400">Senior High STEM (2018)</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <Globe className="w-4 h-4 text-[var(--accent)]" />
-                  </div>
-                  <div>
-                    <span className="block text-[11px] font-mono text-gray-400 uppercase tracking-wider">Languages</span>
-                    <span className="text-white font-medium">Filipino & English</span>
-                    <span className="block text-xs text-gray-400">Bilingual Proficiency</span>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <Calendar className="w-4 h-4 text-[var(--accent)]" />
-                  </div>
-                  <div>
-                    <span className="block text-[11px] font-mono text-gray-400 uppercase tracking-wider">Origin & Citizenship</span>
-                    <span className="text-white font-medium">Filipino · Born Kuwait City</span>
-                    <span className="block text-xs text-gray-400">Based in Bacoor, Cavite</span>
-                  </div>
-                </div>
+              <div className="mt-4 pt-4 border-t border-white/10 text-xs text-gray-400 leading-relaxed">
+                <strong>Address:</strong> {portfolioData.profile.location}
               </div>
+            </div>
 
-              {/* 4 Stats Strip */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-white/10">
-                {portfolioData.stats.map((stat) => (
-                  <div key={stat.label} className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                    <div className="text-xl sm:text-2xl font-black font-mono text-white">
-                      {stat.value}
-                    </div>
-                    <div className="text-[11px] font-medium text-gray-400 tracking-tight mt-0.5">
-                      {stat.label}
-                    </div>
+            {/* Special Skills directly from CV */}
+            <div className="w-full p-6 sm:p-7 rounded-3xl bg-neutral-950/80 border border-white/10 shadow-lg">
+              <span className="text-[11px] font-mono uppercase tracking-[0.26em] text-[var(--accent)] font-semibold block mb-4">
+                Special Skills (from CV)
+              </span>
+              <div className="flex flex-col gap-2.5">
+                {portfolioData.specialSkills.map((skill, idx) => (
+                  <div
+                    key={idx}
+                    className="p-2.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-start gap-2.5 text-xs text-gray-200"
+                  >
+                    <Check className="w-3.5 h-3.5 text-[var(--accent)] shrink-0 mt-0.5" />
+                    <span>{skill}</span>
                   </div>
                 ))}
               </div>
-
             </div>
+
           </div>
 
         </div>
       </div>
 
-      {/* The Stack Section with Multi-Row Infinite Marquees */}
+      {/* Core Competencies Infinite Marquee Rows */}
       <div className="relative mt-auto -mx-6 md:-mx-12 lg:-mx-16 pt-12 pb-4 bg-[#030303] border-t border-white/10">
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 mb-6 flex items-center gap-4">
           <span className="text-[11px] uppercase tracking-[0.32em] text-gray-400 font-mono font-medium">

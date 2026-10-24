@@ -76,17 +76,6 @@ export const Contact: React.FC = () => {
                 <span>Send an Email</span>
                 <Mail className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </a>
-
-              {/* Download CV PDF */}
-              <a
-                href={portfolioData.profile.cvDownloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-3.5 rounded-full border border-white/10 bg-white/[0.04] text-gray-300 hover:text-white hover:border-white/30 text-sm font-medium inline-flex items-center gap-2 transition-all cursor-pointer"
-              >
-                <Download className="w-4 h-4" />
-                <span>Resume (PDF)</span>
-              </a>
             </div>
           </div>
 

@@ -21,29 +21,9 @@ export const Credentials: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl font-black tracking-tighter text-white leading-[0.95] mb-5">
               Aviation rigor & verified references that deliver.
             </h2>
-            <p className="text-gray-400 text-sm font-light leading-relaxed mb-6">
+            <p className="text-gray-400 text-sm font-light leading-relaxed">
               Combining 4 specialized aviation seminars, formal flying college education, and high-trust character references from international executives.
             </p>
-
-            <div className="flex flex-col gap-2.5">
-              <a
-                href={portfolioData.profile.cvDownloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group px-5 py-3 bg-[var(--accent)] text-black text-xs font-bold tracking-[0.14em] uppercase hover:bg-[var(--accent-hover)] transition-all rounded-sm inline-flex items-center justify-between"
-              >
-                <span>Download CV (PDF)</span>
-                <Download className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-y-0.5" />
-              </a>
-
-              <a
-                href="#contact"
-                className="px-5 py-3 bg-white/10 hover:bg-white/20 text-white text-xs font-bold tracking-[0.14em] uppercase transition-all rounded-sm inline-flex items-center justify-between"
-              >
-                <span>Reach Out Directly</span>
-                <span className="text-[var(--accent)]">→</span>
-              </a>
-            </div>
           </div>
 
           {/* Tab Navigation Pill Bar */}

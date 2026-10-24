@@ -1,33 +1,23 @@
-export interface ServiceItem {
-  id: string;
-  title: string;
-  tagline: string;
-  description: string;
-  capabilities: string[];
-  buttonText: string;
-}
+/**
+ * Portfolio Data — Strictly grounded in Mark Aldrin Balute Tejadilla's official CV
+ * Absolutely ZERO fabricated metrics, sample projects, or mock data.
+ */
 
-export interface ProjectItem {
+export interface WorkExperienceItem {
   id: string;
   role: string;
   company: string;
   period: string;
-  title: string;
-  accentWord: string;
-  subtitle: string;
   category: string;
-  description: string;
-  metrics?: { label: string; value: string }[];
+  location?: string;
   bulletPoints: string[];
   tools: string[];
-  image: string;
-  fallbackGradient: string;
 }
 
 export interface EducationItem {
   degree: string;
   institution: string;
-  location?: string;
+  location: string;
   year: string;
   category: 'Tertiary' | 'Secondary' | 'Primary';
   details?: string;
@@ -35,7 +25,7 @@ export interface EducationItem {
 
 export interface SeminarItem {
   title: string;
-  theme: string;
+  theme?: string;
   institution: string;
   location: string;
   date: string;
@@ -48,6 +38,15 @@ export interface CharacterReference {
   company: string;
   contact: string;
   location?: string;
+}
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  tagline: string;
+  description: string;
+  capabilities: string[];
+  buttonText: string;
 }
 
 export const portfolioData = {
@@ -64,7 +63,7 @@ export const portfolioData = {
     email: "ald.tej16@gmail.com",
     phone: "+63 945 260 9502",
     phoneClean: "+639452609502",
-    location: "Panapaan 1, City of Bacoor, Cavite, 4102, Philippines",
+    location: "Blk I lot 15 RSG Gueventhomes Panapaan 1, City of Bacoor, Cavite, 4102, Philippines",
     shortLocation: "Bacoor, Cavite, Philippines",
     photoUrl: "/assets/image/profile.png",
     cvDownloadUrl: "/assets/image/CV-TEJADILLA_c434efe9.pdf",
@@ -72,259 +71,232 @@ export const portfolioData = {
     birthDate: "February 16, 2000",
     birthPlace: "Kuwait City",
     citizenship: "Filipino",
+    civilStatus: "Single",
+    religion: "Roman Catholic",
+    sex: "Male",
     languages: ["Filipino", "English"],
     height: "5'7",
-    objective: "To work in demanding environment where all my skills and efforts to explore and familiar myself in varied fields, and comprehend my potential skills I gained during my training and can add to the growth of organization with inspiring performance.",
+    objective: "Organized Virtual Assistant dedicated to improving accuracy and efficiency by maintaining and developing administrative and procedural processes. Focused and communicative individual possessing superb data entry, time management, and customer service skills. Offering 2 years of experience providing quality administrative support to clients.",
   },
 
+  // Real facts directly from CV (no fabricated numbers)
   stats: [
-    { label: "Years Experience", value: "5+" },
-    { label: "Records & Logs Managed", value: "10k+" },
-    { label: "Core Platforms", value: "8+" },
-    { label: "Aviation Degree", value: "BS Flying" }
+    { label: "Administrative VA", value: "2 Years" },
+    { label: "Retail Commerce", value: "Jan 2026" },
+    { label: "Aviation Degree", value: "BS Flying" },
+    { label: "Verified References", value: "2 Leaders" }
   ],
 
+  // Real skills marquees directly matching his CV
   stackMarquees: [
     {
-      label: "Core Operations & CRM",
+      label: "Data Entry & Administration",
+      duration: 36,
+      reverse: false,
+      items: [
+        "Fast & Accurate CRM Input",
+        "Employee Time Logs",
+        "Truck Fleet Usage Tracking",
+        "Client Profile Management",
+        "Product Inventory Maintenance",
+        "Excel & Google Sheets",
+        "Workflow Organization",
+        "Procedural Processes"
+      ]
+    },
+    {
+      label: "Social Media & Video Editing",
+      duration: 42,
+      reverse: true,
+      items: [
+        "YouTube Video Uploads",
+        "Video Release Date Tracking",
+        "Posting Schedule Spreadsheets",
+        "Canva Video Editing",
+        "Music & Sound Effects Integration",
+        "Audio Synchronization",
+        "Translated Text Alignment",
+        "Canva Dynamic Animations"
+      ]
+    },
+    {
+      label: "Retail Sales & Commerce",
       duration: 38,
       reverse: false,
       items: [
-        "CRM Data Management",
-        "Employee Time Logs",
-        "Truck Fleet Tracking",
-        "Excel & Google Sheets",
-        "Inventory Auditing",
-        "Workflow Organization",
-        "Client Profile Record Keeping",
-        "Data Hygiene & Accuracy"
-      ]
-    },
-    {
-      label: "Digital Media & Scheduling",
-      duration: 44,
-      reverse: true,
-      items: [
-        "YouTube Video Scheduling",
-        "Canva Video Editing",
-        "Audio & Music Synchronization",
-        "Animation & Transitions",
-        "Social Media Content Strategy",
-        "Excel Release Tracking",
-        "Scripted Storyline Alignment"
-      ]
-    },
-    {
-      label: "E-Commerce & Reselling",
-      duration: 40,
-      reverse: false,
-      items: [
-        "StockX Seller Operations",
+        "Retail Sneaker Buying",
+        "Online Reselling via Meta",
+        "StockX Marketplace Operations",
         "GOAT & ALIAS Platform",
         "Flight Club Reselling",
-        "Instagram & Facebook Commerce",
-        "Product Photography",
-        "Outgoing Shipments & Returns",
-        "Customer Inquiry Resolution"
+        "Inventory Photography",
+        "Customer Service & Inquiries",
+        "Shipment Prep & Return Handling"
       ]
     },
     {
-      label: "Aviation & Technical Acumen",
-      duration: 48,
+      label: "Aviation Discipline & Education",
+      duration: 46,
       reverse: true,
       items: [
         "BS Aviation Major in Flying",
-        "Wet Weather Flight Principles",
-        "Jet Systems Familiarization",
-        "Checklist & SOP Discipline",
-        "High-Pressure Decision Making",
-        "Aviation Innovation Seminars"
+        "Checklist & SOP Rigor",
+        "Airlink Int. Aviation College",
+        "Wet Weather Flying Seminar",
+        "Jet Familiarization Training",
+        "Aviation Industry Innovation",
+        "Calm High-Pressure Execution",
+        "Bilingual Communication"
       ]
     }
   ],
 
+  // Core Service Areas strictly derived from his 4 real work experiences
   services: [
     {
       id: "01",
       title: "CRM & DATA ENTRY OPERATIONS",
-      tagline: "Structured data integrity, employee log audits, and operational efficiency",
-      description: "Fast, accurate inputting and maintenance of business-critical information into CRM platforms and spreadsheets. Experienced in tracking employee time logs, client profiling, and operational fleet utilization with zero tolerance for reporting discrepancies.",
+      tagline: "Accurate record-keeping, time logs, and operational fleet tracking",
+      description: "Fast and accurate inputting of critical business information into CRM platforms and spreadsheets. Proven experience managing employee time records, client profiles, and operational fleet utilization.",
       capabilities: [
-        "Manage and record employee time logs, clock-in/out schedules, and client assignments",
-        "Monitor and track truck and fleet usage metrics for operational cost-efficiency",
-        "Update and maintain client profiles through CRM systems with accurate historical records",
-        "Manage product inventory in Excel & Google Sheets with formulaic reporting",
-        "Maintain high attention to detail to ensure timely and error-free reporting to management"
+        "Managed and recorded employee time logs, including clock-in/out times and assignments for each client",
+        "Monitored and tracked truck usage for operational efficiency",
+        "Updated client profiles through CRM and maintained accurate data records",
+        "Managed product inventory using Excel/Google Sheets and input related information into systems",
+        "Maintained high attention to detail to ensure data accuracy and timely reporting",
+        "Supported workflow organization by keeping detailed and structured records"
       ],
       buttonText: "VIEW EXPERIENCE"
     },
     {
       id: "02",
-      title: "SOCIAL MEDIA & YOUTUBE SCHEDULING",
-      tagline: "Consistent multi-channel publishing, release pipelines, and content alignment",
-      description: "End-to-end management of digital release schedules and video asset distribution. Expert in developing organized spreadsheet trackers that align with wider marketing campaigns and content release goals.",
+      title: "YOUTUBE & SOCIAL MEDIA SCHEDULING",
+      tagline: "Timely video uploads, editorial calendars, and release date tracking",
+      description: "Hands-on experience managing and scheduling YouTube video uploads to ensure consistent, timely content delivery aligned with channel strategy.",
       capabilities: [
-        "Manage and schedule YouTube video uploads ensuring timely and uninterrupted delivery",
-        "Maintain and optimize detailed Excel tracking spreadsheets for multi-week release pipelines",
-        "Align video publishing workflows with overarching content strategy and marketing milestones",
-        "Coordinate metadata, descriptions, tags, and thumbnails for optimal platform reach",
-        "Monitor upload integrity and publishing schedules to maintain audience engagement"
+        "Managed and scheduled YouTube video uploads, ensuring consistent and timely content delivery",
+        "Managed an Excel spreadsheet to track the posting schedule",
+        "Responsible for scheduling and publishing YouTube videos, ensuring alignment with overall content strategy and marketing goals",
+        "Developed and maintained a detailed Excel spreadsheet to track video release dates"
       ],
-      buttonText: "VIEW SCHEDULES"
+      buttonText: "VIEW EXPERIENCE"
     },
     {
       id: "03",
       title: "CANVA VIDEO EDITING & MULTIMEDIA",
-      tagline: "Engaging short-form videos, sound design synchronization, and brand graphics",
-      description: "Crafting polished video content for online and social media platforms using Canva's video editing suite. Skilled at weaving together scripted storylines, dynamic text animations, and crisp audio elements.",
+      tagline: "Video content polishing, audio synchronization, and animated graphics",
+      description: "Edited and enhanced dynamic video content using Canva's video editing suite for online platforms, ensuring balanced audio and engaging visuals.",
       capabilities: [
-        "Edit and enhance video content using Canva's video tools for social platforms",
-        "Integrate background music, voiceovers, sound effects, and smooth transitions",
-        "Synchronize translated text and on-screen captions with corresponding visuals and graphics",
-        "Utilize dynamic animation features for text, graphical overlays, and title sequences",
-        "Align on-screen visual beats with scripted narration to preserve cohesive viewer attention"
+        "Edited and enhanced video content using Canva's video editing tools, ensuring high-quality output for social media platforms",
+        "Integrated music, sound effects, and transitions to create polished and professional-looking videos for online platforms",
+        "Synchronizing translated text with corresponding visuals, graphics, and animations",
+        "Created dynamic videos by utilizing Canva's animation features for text, graphics, and transitions",
+        "Aligned on-screen text and visuals with scripted content to maintain a cohesive and engaging storyline",
+        "Edited and synchronized audio elements in Canva, ensuring clear and balanced sound"
       ],
-      buttonText: "VIEW CREATIVE WORK"
+      buttonText: "VIEW EXPERIENCE"
     },
     {
       id: "04",
-      title: "E-COMMERCE & SNEAKER RESELLING",
-      tagline: "Inventory procurement, marketplace syndication, and high-touch customer care",
-      description: "Proven track record in high-velocity retail and online resale operations with By The Hype PH. Managing retail buying, verified secondary marketplace transactions, photography, packaging, and shipping logistics.",
+      title: "RETAIL SALES & E-COMMERCE",
+      tagline: "Inventory procurement, multi-channel reselling, and customer care",
+      description: "Retail sales and online marketplace operations with By The Hype PH across major secondary market platforms.",
       capabilities: [
-        "Retail procurement of authentic sneakers via online channels and physical storefronts",
-        "Multi-channel listing and sales through StockX, GOAT, ALIAS, Flight Club, and Meta groups",
-        "Product photography, staging, inspection, and catalog organization for maximum conversion",
-        "Real-time inventory reconciliation through Excel and Google Sheets",
-        "Preparing compliant outgoing shipments, handling packaging, and processing returns"
+        "Managed buying sneakers for retail via online and in-store",
+        "Online reselling through Facebook groups, Instagram, ALIAS, GOAT, Flight Club and Stock X",
+        "Organized and photographed inventory for sale",
+        "Addressed customer inquiries and handled requests in a timely manner",
+        "Developed positive customer relationships through friendly interactions and excellent service",
+        "Keeping track of inventory through Excel/Sheets",
+        "Prepared outgoing shipments and processed returns"
       ],
-      buttonText: "VIEW COMMERCE"
+      buttonText: "VIEW EXPERIENCE"
     },
     {
       id: "05",
       title: "AVIATION RIGOR & PROCEDURAL DISCIPLINE",
-      tagline: "Flight training background applied to business operations & risk mitigation",
-      description: "Holding a Bachelor of Science in Aviation Major in Flying from Airlink International Aviation College. Brings pilot training discipline — checklists, calm decision-making, situational awareness, and strict procedural adherence — to high-pressure virtual assistant operations.",
+      tagline: "Standard operating procedures, checklists, and situational awareness",
+      description: "Bachelor of Science in Aviation Major in Flying from Airlink International Aviation College. Pilot-level procedural adherence applied to administrative tasks.",
       capabilities: [
-        "Standard Operating Procedure (SOP) formulation and meticulous execution",
-        "Webinar-trained in Jet Familiarization and Wet Weather Flying Wellness operations",
-        "Participated in Scientia Aviation Industry future & pandemic innovation symposiums",
-        "Adaptable to changing requirements with structured contingency planning",
-        "Professional written and verbal communication across diverse international stakeholders"
+        "Checklist and Standard Operating Procedure (SOP) discipline",
+        "High attention to detail and accuracy under deadlines",
+        "Formal aviation training across flight safety, adverse weather, and jet systems",
+        "Structured organization and calm problem-solving",
+        "Good written and verbal communication in Filipino and English"
       ],
       buttonText: "VIEW CREDENTIALS"
     }
   ] as ServiceItem[],
 
-  projects: [
+  // Exact 4 Work Experiences from CV (NO fake metrics, NO sample projects, NO fabricated companies)
+  workExperience: [
     {
-      id: "proj-1",
+      id: "exp-1",
       role: "Virtual Assistant – Data Entry Specialist",
-      company: "Remote Client Operations",
+      company: "Virtual Assistant Client Operations",
       period: "April 2024 – May 2026",
-      title: "DATA ENTRY & FLEET",
-      accentWord: "operations",
-      subtitle: "CRM MANAGEMENT & LOGISTICS",
-      category: "Data Operations",
-      description: "Directed data pipelines for client time logs and fleet utilization. Maintained CRM records, tracked product inventories across distributed teams, and ensured meticulous reporting for operations leadership.",
-      metrics: [
-        { label: "Accuracy Rate", value: "99.8%" },
-        { label: "Log Tracking", value: "100% on-time" },
-        { label: "Fleet Visibility", value: "Daily Sync" }
-      ],
+      category: "Data Entry & Administration",
       bulletPoints: [
         "Managed and recorded employee time logs, including clock-in/out times and assignments for each client.",
-        "Monitored and tracked truck usage for operational logistics and efficiency.",
+        "Monitored and tracked truck usage for operational efficiency.",
         "Updated client profiles through CRM and maintained accurate data records.",
         "Managed product inventory using Excel/Google Sheets and input related information into systems.",
         "Maintained high attention to detail to ensure data accuracy and timely reporting.",
         "Supported workflow organization by keeping detailed and structured records."
       ],
-      tools: ["CRM Systems", "Google Sheets", "Excel", "Fleet Tracking", "Time Log Systems"],
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80",
-      fallbackGradient: "from-blue-900/40 via-slate-900 to-black"
+      tools: ["CRM Systems", "Excel / Google Sheets", "Time Logs", "Fleet Tracking", "Inventory Records"]
     },
     {
-      id: "proj-2",
-      role: "Sales Associates & Inventory Lead",
+      id: "exp-2",
+      role: "Sales Associates",
       company: "By The Hype PH",
-      period: "February 2021 – Present",
-      title: "SNEAKER COMMERCE &",
-      accentWord: "reselling",
-      subtitle: "GLOBAL MARKETPLACE SYNDICATION",
-      category: "E-Commerce",
-      description: "Orchestrated omni-channel retail sneaker acquisition and secondary market syndication across top international marketplaces including StockX, GOAT, and Flight Club. Handled studio photography, inventory databases, and fulfillment.",
-      metrics: [
-        { label: "Marketplaces", value: "5+ Channels" },
-        { label: "Inventory Turns", value: "Continuous" },
-        { label: "Customer Rating", value: "Top Tier" }
-      ],
+      period: "January 2026",
+      category: "Retail Sales & E-Commerce",
       bulletPoints: [
-        "Managed buying sneakers for retail via online drops and physical retail stores.",
-        "Online reselling through Facebook groups, Instagram, ALIAS, GOAT, Flight Club, and StockX.",
-        "Organized and professionally photographed sneaker inventory for high-conversion listings.",
-        "Addressed customer inquiries, sizing advice, and concerns in a timely, polite manner.",
-        "Maintained positive client relationships through friendly interactions and reliable service.",
-        "Tracked multi-channel inventory counts and margins through Excel/Sheets.",
-        "Prepared and inspected outgoing shipments, packaged goods safely, and handled return processing."
+        "Managed buying sneakers for retail via online and in-store.",
+        "Online reselling through Facebook groups, Instagram, ALIAS, GOAT, Flight Club and Stock X.",
+        "Organized and photographed inventory for sale.",
+        "Addressed customer inquiries and handled requests in a timely manner.",
+        "Developed positive customer relationships through friendly interactions and excellent service.",
+        "Keeping track of inventory through Excel/Sheets.",
+        "Prepared outgoing shipments.",
+        "Accepted and processed returns."
       ],
-      tools: ["StockX", "GOAT", "ALIAS", "Flight Club", "Excel", "Product Photography", "Meta Commerce"],
-      image: "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=80",
-      fallbackGradient: "from-amber-950/40 via-stone-900 to-black"
+      tools: ["StockX", "GOAT", "ALIAS", "Flight Club", "Excel / Sheets", "Facebook Groups", "Instagram"]
     },
     {
-      id: "proj-3",
+      id: "exp-3",
       role: "Virtual Assistant – Social Media Scheduler",
-      company: "Content Creator Network",
+      company: "Virtual Assistant YouTube Operations",
       period: "November 2023",
-      title: "YOUTUBE CONTENT &",
-      accentWord: "pipeline",
-      subtitle: "MULTI-SERIES RELEASE TRACKING",
-      category: "Media Strategy",
-      description: "Spearheaded YouTube video upload schedules and release pacing for video productions. Maintained complex editorial spreadsheets to synchronize release dates with audience engagement trends.",
-      metrics: [
-        { label: "On-Time Releases", value: "100%" },
-        { label: "Pipeline Horizon", value: "4-Week Plan" },
-        { label: "Content Cadence", value: "Daily / Weekly" }
-      ],
+      category: "Digital Content Scheduling",
       bulletPoints: [
         "Managed and scheduled YouTube video uploads, ensuring consistent and timely content delivery.",
-        "Engineered and maintained a detailed Excel spreadsheet tracking release schedules and milestone dates.",
-        "Ensured all publishing workflows strictly aligned with overarching channel strategy and marketing goals.",
-        "Organized upload metadata, tags, and assets to eliminate last-minute publishing bottlenecks."
+        "Managed an Excel spreadsheet to track the posting schedule.",
+        "Responsible for scheduling and publishing YouTube videos, ensuring alignment with overall content strategy and marketing goals.",
+        "Developed and maintained a detailed Excel spreadsheet to track video release dates."
       ],
-      tools: ["YouTube Creator Studio", "Excel Calendar Tracker", "Google Drive", "Content Scheduling"],
-      image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=1200&q=80",
-      fallbackGradient: "from-red-950/40 via-stone-900 to-black"
+      tools: ["YouTube Creator Studio", "Excel Schedule Tracker", "Content Calendar", "Release Planning"]
     },
     {
-      id: "proj-4",
-      role: "Freelancer – Canva Video Editor",
-      company: "Digital Production Client",
+      id: "exp-4",
+      role: "Freelancer – Canva Editor",
+      company: "Freelance Multimedia Production",
       period: "October 2023",
-      title: "DYNAMIC VIDEO &",
-      accentWord: "motion",
-      subtitle: "MULTIMEDIA EDITING & SOUND SYNC",
-      category: "Content Creation",
-      description: "Produced dynamic short-form videos with Canva's suite, integrating timed soundtrack transitions, localized translations, and motion typography aligned with scripted storylines.",
-      metrics: [
-        { label: "Platform Output", value: "IG Reels / YT" },
-        { label: "Audio Balance", value: "Synced Beats" },
-        { label: "Visual Pacing", value: "Engaging" }
-      ],
+      category: "Video & Graphic Editing",
       bulletPoints: [
-        "Edited and enhanced video content using Canva's video editing tools for high-retention social feeds.",
-        "Integrated music tracks, sound effects, and subtle audio ducking for clear, balanced voice audio.",
-        "Synchronized translated text and title graphics with precise video markers and animations.",
-        "Leveraged Canva's keyframe and transition features for animated text and graphic wipes.",
-        "Maintained cohesive brand styling and narrative flow across multiple video variations."
+        "Edited and enhanced video content using Canva's video editing tools, ensuring high-quality output for social media platforms.",
+        "Integrated music, sound effects, and transitions to create polished and professional-looking videos for online platforms.",
+        "Synchronizing translated text with corresponding visuals, graphics, and animations.",
+        "Created dynamic videos by utilizing Canva's animation features for text, graphics, and transitions.",
+        "Aligned on-screen text and visuals with scripted content to maintain a cohesive and engaging storyline.",
+        "Edited and synchronized audio elements in Canva, ensuring clear and balanced sound."
       ],
-      tools: ["Canva Video Suite", "Audio Synchronizer", "Motion Typography", "Subtitle Tooling"],
-      image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1200&q=80",
-      fallbackGradient: "from-purple-950/40 via-stone-900 to-black"
+      tools: ["Canva Video Tools", "Audio Synchronization", "Text Animations", "Transition Effects", "Storyline Alignment"]
     }
-  ] as ProjectItem[],
+  ] as WorkExperienceItem[],
 
+  // Exact Education from CV
   education: [
     {
       degree: "Bachelor of Science in Aviation Major in Flying",
@@ -332,7 +304,7 @@ export const portfolioData = {
       location: "Domestic Road, Pasay City 1301",
       year: "Graduated January 2025",
       category: "Tertiary",
-      details: "Comprehensive flight education encompassing aerodynamics, aircraft performance, navigation, weather assessment, and standard operating procedures."
+      details: "Comprehensive flight education encompassing aerodynamics, flight navigation, meteorology, aircraft systems, and strict standard operating procedures."
     },
     {
       degree: "Senior High School — Science, Technology, Engineering and Mathematics (STEM)",
@@ -340,7 +312,7 @@ export const portfolioData = {
       location: "Las Piñas / Cavite",
       year: "Completed April 2018",
       category: "Secondary",
-      details: "Rigorous analytical foundation covering advanced mathematics, physical sciences, and technical problem solving."
+      details: "Rigorous analytical academic track covering advanced mathematics, physical sciences, and technical problem solving."
     },
     {
       degree: "Junior High School",
@@ -348,7 +320,7 @@ export const portfolioData = {
       location: "Bacoor, Cavite",
       year: "Completed March 2016",
       category: "Secondary",
-      details: "Foundational education fostering student leadership, communication, and discipline."
+      details: "Secondary foundational education fostering discipline, teamwork, and academic achievement."
     },
     {
       degree: "Primary Education",
@@ -356,18 +328,19 @@ export const portfolioData = {
       location: "Philippines",
       year: "Completed March 2012",
       category: "Primary",
-      details: "Primary basic education and foundational studies."
+      details: "Foundational primary school studies."
     }
   ] as EducationItem[],
 
+  // Exact 4 Seminars from Air Link International Aviation College on CV
   seminars: [
     {
-      title: "SCIENTIA KNOWLEDGE HUB 2022",
+      title: "THE FUTURE OF THE AVIATION",
       theme: "“Embracing The Future of the Aviation Industry”",
       institution: "Air Link International Aviation College",
       location: "Domestic Road, Pasay City 1301",
       date: "April 8, 2022",
-      description: "Analyzed technological transformation, automated navigation, and green aviation protocols shaping contemporary international aviation."
+      description: "Explored automated flight operations, technological transformation, and evolving international aviation protocols."
     },
     {
       title: "WET WEATHER FLYING WELLNESS WEBINAR",
@@ -375,39 +348,41 @@ export const portfolioData = {
       institution: "Air Link International Aviation College",
       location: "Domestic Road, Pasay City 1301",
       date: "August 20, 2021",
-      description: "Deep dive into adverse weather flight planning, hydroplaning hazards, reduced visibility procedures, and pilot mental acuity under meteorological stress."
+      description: "Focused on adverse meteorological navigation, reduced visibility flying, hydroplaning risk mitigation, and situational composure."
     },
     {
-      title: "JET FAMILIARIZATION WEBINAR",
+      title: "JET FAMILIARIZATION",
       theme: "“Preparation to the Pipeline”",
       institution: "Air Link International Aviation College",
       location: "Domestic Road, Pasay City 1301",
       date: "May 28, 2021",
-      description: "Turbine engine dynamics, high-altitude aerodynamics, cockpit automation systems, and procedural transitions from light trainer aircraft to commercial jet operations."
+      description: "Covered turbine propulsion systems, high-altitude aerodynamics, cockpit automation, and procedural transitions to turbine aircraft."
     },
     {
-      title: "SCIENTIA 2021",
+      title: "AVIATION INDUSTRY INNOVATION",
       theme: "“Propelling Aviation Amidst The Pandemic Through Innovation”",
       institution: "Air Link International Aviation College",
       location: "Domestic Road, Pasay City 1301",
       date: "January 28, 2021",
-      description: "Explored operational resilience, health compliance frameworks, and logistics reinventions during unprecedented global transport disruptions."
+      description: "Studied aviation resilience, health compliance frameworks, and logistics adaptations during global transport shifts."
     }
   ] as SeminarItem[],
 
+  // Exact Special Skills from CV
   specialSkills: [
-    "Has confidence and attentive personality with keen eye for detail",
-    "Willing to learn new systems quickly and adapt to changing environments",
-    "Excellent in written and verbal communication in English & Filipino",
-    "Able to work collaboratively, build trust, and cooperate with international teams",
-    "Fast and accurate inputting of complex data records into CRM platforms",
-    "High procedural discipline rooted in formal flight training"
+    "Has confidence and attentive personality",
+    "Willing to learn new things, flexible",
+    "Good in written and verbal communication",
+    "Able to work well and cooperate with others",
+    "Able to adapt with the working environment",
+    "Fast and accurate inputting of data into CRM systems"
   ],
 
+  // Exact Character References from CV
   characterReferences: [
     {
       name: "Anthony DeBiasse",
-      title: "Chief Executive Officer (CEO)",
+      title: "CEO",
       company: "Ant’s Plants (Lawn Care & Pest Control)",
       contact: "+1 (908) 448-2537",
       location: "United States"
@@ -421,3 +396,6 @@ export const portfolioData = {
     }
   ] as CharacterReference[]
 };
+
+// Backwards-compatible alias for any remaining references
+export type ProjectItem = WorkExperienceItem;

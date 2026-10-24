@@ -11,7 +11,7 @@ const navLinks = [
   { label: 'Home', href: '#home' },
   { label: 'About', href: '#about' },
   { label: 'Service', href: '#service' },
-  { label: 'Project', href: '#project' },
+  { label: 'Experience', href: '#project' },
   { label: 'Credentials', href: '#credentials' },
   { label: 'Contact', href: '#contact' }
 ];
@@ -112,26 +112,6 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
               );
             })}
           </ul>
-
-          {/* Right Action: Download CV & Contact CTA */}
-          <div className="hidden md:flex items-center gap-3">
-            <a
-              href={portfolioData.profile.cvDownloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/20 text-xs font-medium text-gray-300 hover:text-white hover:border-white/40 hover:bg-white/[0.04] transition-all"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Resume PDF</span>
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--accent)] text-black text-xs font-semibold hover:bg-[var(--accent-hover)] transition-all shadow-sm"
-            >
-              <span>Get in Touch</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
-          </div>
 
           {/* Mobile Hamburger Button */}
           <button

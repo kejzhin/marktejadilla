@@ -63,14 +63,20 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                 {/* Left Side: ID + Title + Accordion Content */}
                 <div className="flex items-start justify-between w-full lg:w-7/12 gap-4">
                   <div className="flex items-start gap-4 sm:gap-8 md:gap-14 w-full min-w-0">
-                    {/* Numerical ID */}
+                    {/* Circle / Dot Shape Indicator */}
                     <div className="h-8 md:h-10 flex items-center shrink-0">
                       <span
-                        className={`text-xl sm:text-2xl md:text-3xl font-mono font-bold leading-none transition-colors duration-300 ${
-                          isLit ? 'text-[var(--surface-lit-ink)]' : 'text-gray-400'
+                        className={`relative flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 rounded-full border transition-all duration-300 ${
+                          isLit
+                            ? 'border-black bg-black/10'
+                            : 'border-white/20 bg-white/[0.04]'
                         }`}
                       >
-                        {item.id}
+                        <span
+                          className={`w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full transition-all duration-300 ${
+                            isLit ? 'bg-black scale-110' : 'bg-gray-400'
+                          }`}
+                        />
                       </span>
                     </div>
 
@@ -142,24 +148,6 @@ export const Services: React.FC<ServicesProps> = ({ onSelectService }) => {
                   >
                     {item.tagline}
                   </p>
-
-                  <div className="flex items-center gap-3">
-                    <a
-                      href="#project"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (onSelectService) onSelectService(item);
-                      }}
-                      className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold tracking-wider uppercase transition-all ${
-                        isLit
-                          ? 'bg-black text-white hover:bg-neutral-800'
-                          : 'bg-white/10 text-white hover:bg-white hover:text-black'
-                      }`}
-                    >
-                      <span>{item.buttonText}</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </a>
-                  </div>
                 </div>
 
               </div>

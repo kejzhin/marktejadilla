@@ -29,18 +29,9 @@ export const Footer: React.FC = () => {
           <a href="#home" className="hover:text-white transition-colors">Home</a>
           <a href="#about" className="hover:text-white transition-colors">About</a>
           <a href="#service" className="hover:text-white transition-colors">Service</a>
-          <a href="#project" className="hover:text-white transition-colors">Project</a>
+          <a href="#project" className="hover:text-white transition-colors">Experience</a>
           <a href="#credentials" className="hover:text-white transition-colors">Credentials</a>
           <a href="#contact" className="hover:text-white transition-colors">Contact</a>
-          <a
-            href={portfolioData.profile.cvDownloadUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[var(--accent)] hover:text-white transition-colors"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span>CV PDF</span>
-          </a>
         </div>
 
         {/* Back to Top Button */}

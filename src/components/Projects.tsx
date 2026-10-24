@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { portfolioData, ProjectItem } from '../data/portfolioData';
-import { ArrowUpRight, Calendar, Building2, Check, ExternalLink } from 'lucide-react';
+import { portfolioData, WorkExperienceItem } from '../data/portfolioData';
+import { ArrowUpRight, Calendar, Building2, CheckCircle2, Briefcase, FileText } from 'lucide-react';
 import { ProjectModal } from './ProjectModal';
 
 export const Projects: React.FC = () => {
-  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [selectedExperience, setSelectedExperience] = useState<WorkExperienceItem | null>(null);
 
   return (
     <section
@@ -13,20 +13,20 @@ export const Projects: React.FC = () => {
     >
       <div className="max-w-[1600px] mx-auto w-full">
         {/* Section Top Header */}
-        <div className="flex flex-col lg:flex-row justify-between items-start w-full z-10 gap-8 lg:gap-12 mb-16 lg:mb-28">
-          {/* Left Title: "SELECTED work" */}
+        <div className="flex flex-col lg:flex-row justify-between items-start w-full z-10 gap-8 lg:gap-12 mb-16 lg:mb-24">
+          {/* Left Title: "WORK experience" */}
           <div className="w-full lg:w-7/12 overflow-visible">
             <span className="text-[11px] md:text-xs uppercase tracking-[0.32em] text-gray-400 font-mono font-medium block mb-3">
-              Career Milestones & Roles
+              Official Employment History
             </span>
             <h2 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter drop-shadow-2xl leading-[0.9] uppercase">
               <span className="block overflow-hidden pb-[0.08em]">
                 <span className="flex items-center gap-3">
                   <span className="text-transparent bg-clip-text bg-gradient-to-b from-white via-gray-200 to-gray-600">
-                    Selected
+                    Work
                   </span>
                   <span className="font-light italic text-gray-300 lowercase font-serif pr-4 pt-1 sm:pt-2 md:pt-3">
-                    work
+                    experience
                   </span>
                 </span>
               </span>
@@ -35,142 +35,89 @@ export const Projects: React.FC = () => {
 
           {/* Right Header Description + Action */}
           <div className="w-full lg:w-5/12 flex flex-col items-start lg:items-end text-left lg:text-right">
-            <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-6 max-w-md">
-              Delivering data accuracy, strict procedural discipline, high-velocity commerce, and engaging multimedia editing tailored to demanding operational environments.
+            <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed max-w-md">
+              Verifiable professional history across virtual assistant operations, CRM database auditing, social media scheduling, and retail commerce from my official CV.
             </p>
-            <a
-              href={portfolioData.profile.cvDownloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="cursor-pointer px-6 py-2.5 rounded-full border border-[var(--accent)] bg-[var(--accent)] text-black font-semibold text-xs md:text-sm hover:bg-[var(--accent-hover)] transition-all flex items-center gap-2 shadow-sm"
-            >
-              <span>Download Complete CV</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </a>
           </div>
         </div>
 
-        {/* Alternating Project Showcase Cards */}
-        <div className="flex flex-col gap-20 lg:gap-32 w-full">
-          {portfolioData.projects.map((proj, idx) => {
-            const isEven = idx % 2 === 0;
-
-            return (
-              <div
-                key={proj.id}
-                className={`flex flex-col ${
-                  isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
-                } items-center justify-between gap-10 lg:gap-16 w-full group`}
-              >
-                {/* Visual / Image Frame */}
-                <div className="w-full lg:w-6/12 overflow-hidden relative aspect-[16/10] bg-[#111] rounded-2xl border border-white/10 shadow-2xl">
-                  {/* Subtle ambient gradient mesh */}
-                  <div className={`absolute inset-0 bg-gradient-to-br ${proj.fallbackGradient} opacity-60 mix-blend-multiply pointer-events-none`} />
-
-                  <img
-                    src={proj.image}
-                    alt={proj.title}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-85 group-hover:opacity-100"
-                  />
-
-                  {/* Overlay Badge */}
-                  <div className="absolute top-4 left-4 z-10 flex items-center gap-2">
-                    <span className="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-[11px] font-mono uppercase tracking-wider text-gray-200">
-                      {proj.category}
-                    </span>
-                  </div>
-
-                  {/* Overlay Period Tag */}
-                  <div className="absolute bottom-4 right-4 z-10">
-                    <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-white/10 text-xs font-mono text-gray-300">
-                      {proj.period}
-                    </span>
-                  </div>
+        {/* 4 Official Work Experience Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10 w-full">
+          {portfolioData.workExperience.map((exp, idx) => (
+            <div
+              key={exp.id}
+              className="group relative flex flex-col justify-between p-8 sm:p-10 rounded-3xl bg-neutral-950/70 border border-white/10 hover:border-white/25 transition-all duration-300 shadow-xl hover:shadow-2xl"
+            >
+              {/* Top Row: Category + Period */}
+              <div>
+                <div className="flex items-center justify-between gap-4 mb-5">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-[var(--accent)]">
+                    <Briefcase className="w-3.5 h-3.5" />
+                    <span>{exp.category}</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 text-xs font-mono text-gray-400">
+                    <Calendar className="w-3.5 h-3.5 text-gray-500" />
+                    <span>{exp.period}</span>
+                  </span>
                 </div>
 
-                {/* Content Details */}
-                <div className="w-full lg:w-6/12 flex flex-col items-start">
-                  {/* Company & Role Eyebrow */}
-                  <div className="flex items-center gap-3 text-xs font-mono text-gray-400 mb-3">
-                    <span className="inline-flex items-center gap-1.5 text-[var(--accent)] font-semibold">
-                      <Building2 className="w-3.5 h-3.5" />
-                      {proj.company}
-                    </span>
-                    <span>·</span>
-                    <span className="inline-flex items-center gap-1">
-                      <Calendar className="w-3 h-3" />
-                      {proj.period}
-                    </span>
-                  </div>
+                {/* Role Title & Company */}
+                <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight mb-2 group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-gray-300 transition-colors">
+                  {exp.role}
+                </h3>
+                <div className="flex items-center gap-2 text-sm font-mono text-gray-400 mb-6">
+                  <Building2 className="w-4 h-4 text-[var(--accent)]" />
+                  <span className="font-semibold text-gray-300">{exp.company}</span>
+                </div>
 
-                  {/* Stylized Title with Italic Serif Accent Word */}
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight uppercase text-white mb-2">
-                    {proj.title}{' '}
-                    <span className="font-serif italic lowercase font-light text-gray-300 pr-1">
-                      {proj.accentWord}
-                    </span>
-                  </h3>
-                  <h4 className="text-xs sm:text-sm font-mono text-gray-400 uppercase tracking-widest mb-4">
-                    {proj.subtitle}
-                  </h4>
-
-                  {/* Description */}
-                  <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-6">
-                    {proj.description}
-                  </p>
-
-                  {/* Key Metrics / Highlights Strip */}
-                  {proj.metrics && (
-                    <div className="grid grid-cols-3 gap-2.5 w-full mb-6 py-3 border-y border-white/10">
-                      {proj.metrics.map((m, i) => (
-                        <div key={i} className="text-left">
-                          <div className="text-base sm:text-lg font-black font-mono text-white">
-                            {m.value}
-                          </div>
-                          <div className="text-[10px] sm:text-[11px] font-mono text-gray-400 uppercase tracking-wider">
-                            {m.label}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
+                {/* Key Responsibilities directly from CV */}
+                <ul className="space-y-3 mb-8">
+                  {exp.bulletPoints.slice(0, 4).map((bullet, bIdx) => (
+                    <li key={bIdx} className="flex items-start gap-3 text-sm text-gray-300 font-light leading-snug">
+                      <CheckCircle2 className="w-4 h-4 text-[var(--accent)] shrink-0 mt-0.5" />
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                  {exp.bulletPoints.length > 4 && (
+                    <li className="text-xs font-mono text-gray-500 pl-7">
+                      + {exp.bulletPoints.length - 4} more verified responsibilities...
+                    </li>
                   )}
+                </ul>
+              </div>
 
-                  {/* Tool Badges */}
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {proj.tools.map((tool, i) => (
-                      <span
-                        key={i}
-                        className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 text-xs font-mono text-gray-300"
-                      >
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action Button to Open Full Modal */}
-                  <button
-                    type="button"
-                    onClick={() => setSelectedProject(proj)}
-                    className="cursor-pointer inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 text-white font-medium text-xs sm:text-sm hover:bg-white hover:text-black transition-all"
-                  >
-                    <span>View Role Responsibilities</span>
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </button>
+              {/* Bottom: Tools Used + Detail Trigger */}
+              <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div className="flex flex-wrap gap-1.5">
+                  {exp.tools.map((tool, tIdx) => (
+                    <span
+                      key={tIdx}
+                      className="px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/5 text-[11px] font-mono text-gray-400"
+                    >
+                      {tool}
+                    </span>
+                  ))}
                 </div>
 
+                <button
+                  type="button"
+                  onClick={() => setSelectedExperience(exp)}
+                  className="cursor-pointer shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/10 hover:bg-white hover:text-black text-xs font-mono text-gray-200 transition-all"
+                >
+                  <span>Full Details</span>
+                  <ArrowUpRight className="w-3.5 h-3.5" />
+                </button>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Detail Modal */}
-      {selectedProject && (
+      {/* Modal Dialog for complete bullet points */}
+      {selectedExperience && (
         <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
+          project={selectedExperience}
+          onClose={() => setSelectedExperience(null)}
         />
       )}
     </section>
