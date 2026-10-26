@@ -64,6 +64,13 @@
   border: 1px solid rgba(9, 9, 11, 0.12);
 }
 
+@media (min-width: 1024px) {
+  .hero-mask-desktop {
+    mask-image: linear-gradient(to bottom, black 0%, black 86%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 86%, transparent 100%);
+  }
+}
+
 @keyframes marquee {
   0% {
     transform: translateX(0);

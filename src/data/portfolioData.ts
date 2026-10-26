@@ -66,7 +66,7 @@ export const portfolioData = {
     location: "Blk I lot 15 RSG Gueventhomes Panapaan 1, City of Bacoor, Cavite, 4102, Philippines",
     shortLocation: "Bacoor, Cavite, Philippines",
     photoUrl: "/assets/image/profile.png",
-    cvDownloadUrl: "/assets/image/CV-TEJADILLA_c434efe9.pdf",
+    cvDownloadUrl: "/assets/image/resume.pdf",
     whatsapp: "639452609502",
     linkedin: "https://www.linkedin.com/in/mark-aldrin-tejadilla-044619292/",
     birthDate: "February 16, 2000",

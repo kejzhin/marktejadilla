@@ -7,9 +7,10 @@ import { LinkedInIcon } from './LinkedInIcon';
 
 interface HeroProps {
   onPreloadComplete?: () => void;
+  onOpenResume?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
+export const Hero: React.FC<HeroProps> = ({ onPreloadComplete, onOpenResume }) => {
   const targetWord = portfolioData.profile.wordmark; // "TEJADILLA"
   const [isIntroDone, setIsIntroDone] = useState<boolean>(false);
   const [showIntroComponent, setShowIntroComponent] = useState<boolean>(true);
@@ -141,25 +142,25 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
             </p>
 
             {/* Key Capability Chips */}
-            <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-8">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2.5 mb-8">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-[11px] sm:text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black shrink-0" />
                 <span>Superb Data Entry</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-[11px] sm:text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black shrink-0" />
                 <span>Administrative Processes</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-[11px] sm:text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black shrink-0" />
                 <span>Time Management</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
-                <CheckCircle2 className="w-3.5 h-3.5 text-black" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-[11px] sm:text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <CheckCircle2 className="w-3.5 h-3.5 text-black shrink-0" />
                 <span>Customer Service</span>
               </span>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-xs font-mono text-zinc-800 shadow-xs font-medium">
-                <Plane className="w-3.5 h-3.5 text-black" />
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-zinc-200/80 bg-white/90 text-[11px] sm:text-xs font-mono text-zinc-800 shadow-xs font-medium">
+                <Plane className="w-3.5 h-3.5 text-black shrink-0" />
                 <span>BS Aviation (Flying)</span>
               </span>
             </div>
@@ -176,15 +177,14 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
                 </div>
               </a>
 
-              <a
-                href={portfolioData.profile.cvDownloadUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                onClick={onOpenResume}
                 className="flex items-center justify-center gap-2 px-5 py-3.5 rounded-full border border-zinc-300 bg-white text-zinc-900 hover:bg-black hover:text-white hover:border-black text-xs sm:text-sm font-semibold tracking-wide uppercase transition-all duration-300 cursor-pointer shadow-xs"
               >
                 <Download className="w-3.5 h-3.5" />
                 <span>Resume (PDF)</span>
-              </a>
+              </button>
 
               {/* Official LinkedIn Button */}
               <a
@@ -200,23 +200,19 @@ export const Hero: React.FC<HeroProps> = ({ onPreloadComplete }) => {
 
           </div>
 
-          {/* RIGHT SIDE: Cutout Profile Picture */}
-          <div className="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end items-end relative w-full pt-4 lg:pt-0">
-            <div className="relative group w-full max-w-[320px] xs:max-w-[360px] sm:max-w-[420px] lg:max-w-[480px] xl:max-w-[520px] flex justify-center items-end">
+          {/* RIGHT SIDE: Cutout Profile Picture (Centered symmetrically on mobile, anchored on desktop) */}
+          <div className="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-end items-center lg:items-end relative w-full pt-8 pb-4 lg:py-0">
+            <div className="relative group w-full max-w-[280px] xs:max-w-[320px] sm:max-w-[380px] lg:max-w-[480px] xl:max-w-[520px] mx-auto lg:mx-0 flex justify-center items-center lg:items-end">
               
               {/* Subtle Ambient Backlight Halo */}
-              <div className="absolute inset-0 -top-10 rounded-full bg-gradient-to-t from-transparent via-zinc-300/40 to-zinc-400/20 blur-3xl transform scale-95 pointer-events-none" />
+              <div className="absolute inset-0 -top-6 lg:-top-10 rounded-full bg-gradient-to-t from-transparent via-zinc-300/40 to-zinc-400/20 blur-3xl transform scale-95 pointer-events-none" />
 
               {/* Pure Transparent Silhouette Image */}
               <img
                 ref={imageRef}
                 src={portfolioData.profile.photoUrl}
                 alt={portfolioData.profile.fullName}
-                className="w-full h-auto max-h-[55vh] sm:max-h-[62vh] md:max-h-[70vh] lg:max-h-[78vh] xl:max-h-[82vh] object-contain object-bottom select-none transition-transform duration-700 ease-out group-hover:scale-[1.015]"
-                style={{
-                  maskImage: 'linear-gradient(to bottom, black 0%, black 86%, transparent 100%)',
-                  WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 86%, transparent 100%)',
-                }}
+                className="w-full h-auto max-h-[46vh] sm:max-h-[56vh] lg:max-h-[78vh] xl:max-h-[82vh] object-contain object-center lg:object-bottom mx-auto select-none transition-transform duration-700 ease-out group-hover:scale-[1.015] hero-mask-desktop"
               />
             </div>
           </div>

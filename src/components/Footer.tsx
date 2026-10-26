@@ -57,9 +57,9 @@ export const Footer: React.FC = () => {
       </div>
 
       {/* Copyright Notice */}
-      <div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 text-xs font-mono text-zinc-500 font-medium">
+      <div className="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-8 text-xs font-mono text-zinc-500 font-medium">
         <p>© 2026 {portfolioData.profile.fullName}. All rights reserved.</p>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
           <a
             href={portfolioData.profile.linkedin}
             target="_blank"

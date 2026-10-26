@@ -6,6 +6,7 @@ import { LinkedInIcon } from './LinkedInIcon';
 interface NavbarProps {
   activeSection: string;
   introDone?: boolean;
+  onOpenResume?: () => void;
 }
 
 const navLinks = [
@@ -17,7 +18,7 @@ const navLinks = [
   { label: 'Contact', href: '#contact' }
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true }) => {
+export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true, onOpenResume }) => {
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -172,16 +173,17 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, introDone = true 
             <span>{portfolioData.profile.phone}</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            <a
-              href={portfolioData.profile.cvDownloadUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={closeMenu}
-              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-zinc-300 text-xs font-bold text-zinc-900 bg-zinc-100"
+            <button
+              type="button"
+              onClick={() => {
+                onOpenResume?.();
+                closeMenu();
+              }}
+              className="flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-zinc-300 text-xs font-bold text-zinc-900 bg-zinc-100 cursor-pointer"
             >
               <Download className="w-4 h-4" />
               <span>Resume PDF</span>
-            </a>
+            </button>
             <a
               href="#contact"
               onClick={closeMenu}
